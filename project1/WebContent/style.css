@@ -1,6 +1,8 @@
-html, body{
+html, body, table{
+/* 	background-image:url("http://subreader.co/wp-content/uploads/2018/01/nyc-buildings-at-night-in-fresh-new-york-city-usa-united-states-town-skyscraper-house-light-lighting-panorama.jpg"); */
 	margin: 0;
 	padding: 0;
+	color: #ffffff;
 	background-color: #000000;
 }
 
@@ -44,22 +46,61 @@ ul li a:hover{
 	font-size: 180%;
 }
 
-.main{
-	background:url(https://static.tumblr.com/ouoa1be/C6cp4yc0r/share3.jpg.jpeg) no-repeat center top;
+/* .main{
+	background:url(http://subreader.co/wp-content/uploads/2018/01/nyc-buildings-at-night-in-fresh-new-york-city-usa-united-states-town-skyscraper-house-light-lighting-panorama.jpg) no-repeat center top;
 	background-size: cover;
 	height: 800px;
+} */
+
+h1.popular{
+	padding: 0px 30px;
+}
+
+.movieblock .list{
+	color: #000000;
+	/* background-color: #ffffff; */
+	padding: 0px 150px;
+	margin: 0px;
+}
+
+.movieblock .list .movie{
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	margin: 10px 30px;
+	padding: 5px;
+	background-color: #ffffff;
+	border: 3px solid blue;
+	overflow: auto;
 }
 
 .footer{
-	background-color: #000000;
-	height: 30px;
+	/* position: ; */
+	bottom: 0;
+	left: 35%;
+	height: 10px;
+	padding: 0;
+	margin: 0;
 }
 
-.footer p{
+.footer ul{	
+	text-align: center;
+	margin: 0;
+}
+
+.footer li{
+	display: inline-block;
+}
+
+.footer li a{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.copyright{
 	color: #ffffff;
 	font-size: 14px;
-	height: 30px;
-	line-height: 30px;
+	text-align: center;
 	margin: 0;
 }
 
