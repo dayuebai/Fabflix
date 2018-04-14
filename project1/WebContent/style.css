@@ -113,7 +113,7 @@ h1.popular{
 	display: inline-block;
 	width: 300px;
 	height: 300px;
-	transition: transform .2s;
+	/* transition: transform .2s;*/
 	margin: 10px 10px;
  	padding: 5px;
 	background-color: #9a8478;
@@ -122,8 +122,9 @@ h1.popular{
 	color:#ffffff;
 }
 
-.movieblock .list .movie:hover {
-    transform: scale(1.07); 
+.movieblock .list .movie:hover, .main .mainContent .topMovies img:hover, .main .mainContent .topSearchActors img:hover {
+    transform: scale(1.07);
+    transition: transform .3s;
 }
 
 /* .movieblock .list .movie p{
@@ -159,26 +160,4 @@ h1.popular{
 	text-align: center;
 	margin: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
