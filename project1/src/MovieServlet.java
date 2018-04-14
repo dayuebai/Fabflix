@@ -25,7 +25,7 @@ public class MovieServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // change this to your own mysql username and password
 		String loginUser = "root";
-        String loginPasswd = "mm941026";
+        String loginPasswd = "lovelive";
         String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
 		
         // set response mime type
@@ -35,7 +35,7 @@ public class MovieServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         out.println("<html>");
-        out.println("<head><title>Fablix</title>");
+        out.println("<head><title>Fabflix</title>");
         out.println("<link rel=\"icon\" href=\"fablix.png\" type=\"image/png\">");
         out.println("<link href=\"style.css\" type=\"text/css\" rel=\"stylesheet\">");
         out.println("</head>");
@@ -54,17 +54,17 @@ public class MovieServlet extends HttpServlet {
 
         		out.println("<body>");
         		out.println("<div class='navigator'>");
-        		out.println("<ul><li><a id='icon' href='index.html'>Fablix</a></li>");
-        		out.println("<li><a href='index.html'>Home</a></li>");
-        		out.println("<li><a href='movielist'>Movies</a></li>");
+        		out.println("<ul><li><a id='icon' href='index.html'><strong>Fabflix</strong></a></li>");
+        		out.println("<li><a class='focus' href='index.html'><strong>Home</strong></a></li>");
+        		out.println("<li><a class='focus' href='movielist'><strong>Movies</strong></a></li>");
         		out.println("</ul></div>");
-        		
+        		out.println("<hr noshade>");
         		out.println("<div class='movieblock'>");
-        		out.println("<h1 class='popular'>Popular Movies:</h1>");
+        		out.println("<h1 class='popular'>Top Movies:</h1>");
         		out.println("<div class='list'>");
 
         		
-        		
+        		    
 //        		out.println("<table border>");
 //        		// add table header row
 //        		out.println("<tr>");
@@ -94,34 +94,42 @@ public class MovieServlet extends HttpServlet {
             		Statement statementStar = connection.createStatement();
             		ResultSet resultSetStar = statementStar.executeQuery(query_star);
             		
-	        		out.print("<div class='movie'>");
-	        		out.println("<p>Title: " + movieTitle + "</p>");
-	        		out.println("<p>Year: " + movieYear + "</p>");
-	        		out.println("<p>Director: " + movieDirector + "</p>");
-	        		out.println("<p>Rating: " + movieRatings + "</p>");
-	        		out.println("<p>Stars: ");
-	        		
+
+	        		out.print("<div class='movie'><table width='300' border='0' cellspacing='4' cellpadding='0'><tr><td width='90'>&nbsp;</td><td>&nbsp;</td></tr>");
+	        		out.println("<tr><td style='text-align:left;'>Title:</td><td style='text-align:left;'>" + movieTitle + "</td></tr>");
+	        		out.println("<tr><td style='text-align:left;'>Year:</td><td style='text-align:left;'>" + movieYear + "</td></tr>");
+	        		out.println("<tr><td style='text-align:left;'>Director:</td><td style='text-align:left;'>" + movieDirector + "</td></tr>");
+	        		out.println("<tr><td style='text-align:left;'>Rating:</td><td style='text-align:left;'>" + movieRatings + "</td></tr>");
+	        		out.println("<tr><td style='text-align:left;'>Stars:</td><td style='text-align:left;'>");
+
+//	        		
 	        		while (resultSetStar.next()) {
 	        			String starName = resultSetStar.getString("name");
-	        			out.print(starName + " ");
+	        			if (! resultSetStar.isLast())
+	        				out.print(starName + ", ");
+	        			else 
+	        				out.print(starName);
 	        		}  
-	        		
-	        		out.print("</p>");
-
+	        		out.print("</td></tr>");
+//
             		String query_genre = "select name from genres, genres_in_movies where genres.id=genres_in_movies.genreId and " + 
             				"genres_in_movies.movieId='" + movieID + "';";
-            		// execute query
+//            		 execute query
             		Statement statementGenre = connection.createStatement();
             		ResultSet resultSetGenre = statementGenre.executeQuery(query_genre);
             		
-	        		out.println("<p>Genres: ");
-	        		
+            		out.println("<tr><td style='text-align:left;'>Genres:</td><td style='text-align:left;'>");
+//	        		
 	        		while (resultSetGenre.next()) {
 	        			String genreName = resultSetGenre.getString("name");
-	        			out.print(genreName + " ");
+	        			if (! resultSetGenre.isLast())
+	        				out.print(genreName + ", ");
+	        			else 
+	        				out.print(genreName);
 	        		}  
 	        		
-	        		out.print("</p></div>");
+	        		out.print("</td></tr>");
+	        		out.print("</table></div>");
 	        		
 	        		resultSetStar.close();
 	        		resultSetGenre.close();
@@ -130,7 +138,7 @@ public class MovieServlet extends HttpServlet {
         		}
 	        	out.println("</div></div>");
 	        	
-        		out.println("</table>");
+        		out.println("<hr noshade class='hr1'>");
         		
         		out.println("	<div class=\"footer\">\n" + 
         				"		<ul>\n" + 

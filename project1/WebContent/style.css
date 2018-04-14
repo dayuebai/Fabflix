@@ -1,13 +1,12 @@
-html, body, table{
+html, body{
 /* 	background-image:url("http://subreader.co/wp-content/uploads/2018/01/nyc-buildings-at-night-in-fresh-new-york-city-usa-united-states-town-skyscraper-house-light-lighting-panorama.jpg"); */
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
-	background-color: #000000;
+	background-color: #35373a;
 }
 
 .navigator{
-	background: #000000;
 	height: 50px;
 	width: 100%;
 }
@@ -35,9 +34,14 @@ html, body, table{
 	text-decoration: none;
 }
 
-ul li a:hover{
-	color: grey;
+.navigator ul li a:link, .navigator ul li a:visited{
+	color: #ffffff;
 }
+
+.navigator ul li a.focus:hover {
+	background-color: grey;
+}
+
 
 #icon{
 	color: #ff0000;
@@ -45,11 +49,54 @@ ul li a:hover{
 	font-weight: bold;
 	font-size: 180%;
 }
+img.style {
+	float: left;
+	margin-right: 20px;
+	
+}
+p.story {
+	height:600px;
+	line-height: 2.5;
+	font-size: large;
+	
+}
+.main{
+	
+} 
 
-/* .main{
-	background:url(http://subreader.co/wp-content/uploads/2018/01/nyc-buildings-at-night-in-fresh-new-york-city-usa-united-states-town-skyscraper-house-light-lighting-panorama.jpg) no-repeat center top;
-	background-size: cover;
-	height: 800px;
+.main .mainContent{
+	font-family: Arial;
+	padding: 10px;
+	margin: 0px 30px;
+	color: #ffffff;
+}
+
+#movieStories{
+	display: inline-block;
+}
+hr {
+	margin:0;
+	padding:0;
+			
+}
+
+.hr1 {
+	color: #000000;
+	margin:10px 0px;
+}
+/* .main .trailer{
+	
+}
+
+.main .topMovies{
+}
+
+.main .topSearchActors{
+	
+}
+
+.main .fablixStories{
+
 } */
 
 h1.popular{
@@ -59,21 +106,30 @@ h1.popular{
 .movieblock .list{
 	color: #000000;
 	/* background-color: #ffffff; */
-	padding: 0px 150px;
-	margin: 0px;
+	padding: 0px 20px;
 }
 
 .movieblock .list .movie{
 	display: inline-block;
 	width: 300px;
 	height: 300px;
-	margin: 10px 30px;
-	padding: 5px;
-	background-color: #ffffff;
-	border: 3px solid blue;
+	transition: transform .2s;
+	margin: 10px 10px;
+ 	padding: 5px;
+	background-color: #9a8478;
+	border: 3px solid #35373a;
 	overflow: auto;
+	color:#ffffff;
 }
 
+.movieblock .list .movie:hover {
+    transform: scale(1.07); 
+}
+
+/* .movieblock .list .movie p{
+	line-height:1.5;
+	font-size:90%;
+} */
 .footer{
 	/* position: ; */
 	bottom: 0;
