@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 // this annotation maps this Java Servlet Class to a URL
 @WebServlet("/top20")
-public class MovieServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class TopServlet extends HttpServlet {
+	private static final long serialVersionUID = 2L;
        
-    public MovieServlet() {
+    public TopServlet() {
         super();
     }
 
