@@ -33,14 +33,29 @@ function handleResult(resultData) {
     for (let i = 0; i < Math.min(movieNumber, resultData.length); i++) {
         let rowHTML = "<div class='container'>";
         rowHTML += "<div class='jumbotron'>";
-        rowHTML += "<h2 style='color:red;'>" + resultData[i]["movieName"] + "</h2>";
-        rowHTML += "<h3>Year: " + resultData[i]["movieYear"] + "</h3>";
-        rowHTML += "<h3>Director: " + resultData[i]["movieDirector"] + "</h3>";
-        rowHTML += "<h3>Rating: " + resultData[i]["movieRating"] + "</h3>";
-        rowHTML += "<h3>Stars: " + resultData[i]["listofStars"] + "</h3>";
-        rowHTML += "<h3>Genres: " + resultData[i]["listofGenres"] + "</h3>";
-        rowHTML += "<h3>ID:" + resultData[i]["movieId"] + "</h3>";
-        rowHTML += "</div></div>";
+        
+//        	"<tr><td style='text-align:left;'>Title:</td><td style='text-align:left;'>" + movieTitle + "</td></tr>"
+        	
+        rowHTML += "<a style='font-weight: bold; font-size: 200%; text-decoration: underline;' href='#' class='movieTitle'>" + resultData[i]["movieName"] + "</a>";
+        	
+        rowHTML += "<table width='800' border='0' cellspacing='4' cellpadding='0'><tr><td width='460'>&nbsp;</td><td>&nbsp;</td></tr>";
+        rowHTML += "<tr><td style='text-align:left;'><h2>Year:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieYear"] + "</h2></td></tr>";
+        rowHTML += "<tr><td style='text-align:left;'><h2>Director:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieDirector"] + "</h2></td></tr>";
+        rowHTML += "<tr><td style='text-align:left;'><h2>Rating:</h2></td><td style='text-align:left;'><h2>" + (resultData[i]["movieRating"] ? resultData[i]["movieRating"] : "0.0") + "</h2></td></tr>";
+        rowHTML += "<tr><td style='text-align:left;'><h2>Genres:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["listofGenres"] + "</h2></td></tr>";
+        rowHTML += "<tr><td style='text-align:left;'><h2>ID:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieId"] + "</h2></td></tr>";
+        
+        rowHTML += "<tr><td style='text-align:left;'><h2>Stars:</h2></td><td style='text-align:left;'>";
+        starArray = resultData[i]["listofStars"].split(",");
+        var j;
+        for (j = 0; j < starArray.length - 1; j++)
+        	rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='#'>" + starArray[j] + "</a>" + ", ";   
+        rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='#'>" + starArray[j] + "</a>";  
+        rowHTML += "</td></tr>";
+        
+//        "<a style='font-size: large; color: red; text-decoration: underline;' href='#'>" 
+        
+        rowHTML += "</table></div></div>";
         console.log(rowHTML);
         // Append the row created to the table body, which will refresh the page
         movieTableBodyElement.append(rowHTML);

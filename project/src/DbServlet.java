@@ -41,16 +41,15 @@ public class DbServlet extends HttpServlet {
 
 			String queryCount = "";
 			if (!genreQuery.equals("")){
-				queryCount = "select count(*) as total from ratings, " + 
-						"movies, genres, genres_in_movies where ratings.movieId=movies.id and movies.id=genres_in_movies.movieId "
+				queryCount = "select count(*) as total from " + 
+						"movies, genres, genres_in_movies where movies.id=genres_in_movies.movieId "
 						+ "and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "';";
 			}
 			else {
-				queryCount = "select count(*) as total from ratings, "
-    				+ "movies where ratings.movieId=movies.id;";
+				queryCount = "select count(*) as total from movies;";
 			}
-			Statement statementCount = dbcon.createStatement();
-			ResultSet rsCount = statementCount.executeQuery(queryCount);
+			PreparedStatement statementCount = dbcon.prepareStatement(queryCount);
+			ResultSet rsCount = statementCount.executeQuery();
 			int counter = 0;
 			while (rsCount.next()) {
 				counter = rsCount.getInt("total");
@@ -59,13 +58,13 @@ public class DbServlet extends HttpServlet {
 			// Construct a query with parameter represented by "?"
 			String query = "";
 			if (!genreQuery.equals("")){
-				query = "select movies.id as movieId, title, year, director, rating from ratings, " + 
-						"movies, genres, genres_in_movies where ratings.movieId=movies.id and movies.id=genres_in_movies.movieId "
-						+ "and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by rating desc limit ?, ?;";
+				query = "select movies.id as movieId, title, year, director, rating from genres, genres_in_movies, movies left join ratings on movies.id=ratings.movieId " + 
+						"where movies.id=genres_in_movies.movieId " + 
+						"and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by rating desc limit ?, ?;";
 			}
 			else {
-				query = "select movies.id as movieId, title, year, director, rating from ratings, "
-    				+ "movies where ratings.movieId=movies.id order by rating desc limit ?, ?;";
+				query = "select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
+						"order by rating desc limit ?, ?;";
 			}
 
 			// Declare our statement
@@ -108,7 +107,7 @@ public class DbServlet extends HttpServlet {
         		while (resultSetStar.next()) {
         			String starName = resultSetStar.getString("name");
         			if (! resultSetStar.isLast())
-        				listofStars += starName + ", ";
+        				listofStars += starName + ",";
         			else 
         				listofStars += starName;
         		} 
@@ -121,7 +120,7 @@ public class DbServlet extends HttpServlet {
         		while (resultSetGenre.next()) {
         			String genreName = resultSetGenre.getString("name");
         			if (! resultSetGenre.isLast())
-        				listofGenres += genreName + ", ";
+        				listofGenres += genreName + ",";
         			else 
         				listofGenres += genreName;
         		} 
