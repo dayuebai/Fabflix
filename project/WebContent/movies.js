@@ -38,7 +38,7 @@ function handleResult(resultData) {
         	
         rowHTML += "<a style='font-weight: bold; font-size: 200%; text-decoration: underline;' href='#' class='movieTitle'>" + resultData[i]["movieName"] + "</a>";
         	
-        rowHTML += "<table width='800' border='0' cellspacing='4' cellpadding='0'><tr><td width='460'>&nbsp;</td><td>&nbsp;</td></tr>";
+        rowHTML += "<table width='800' border='0' cellspacing='0' cellpadding='0'><tr><td width='200'>&nbsp;</td><td>&nbsp;</td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Year:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieYear"] + "</h2></td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Director:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieDirector"] + "</h2></td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Rating:</h2></td><td style='text-align:left;'><h2>" + (resultData[i]["movieRating"] ? resultData[i]["movieRating"] : "0.0") + "</h2></td></tr>";

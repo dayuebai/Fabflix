@@ -120,7 +120,7 @@ public class DbServlet extends HttpServlet {
         		while (resultSetGenre.next()) {
         			String genreName = resultSetGenre.getString("name");
         			if (! resultSetGenre.isLast())
-        				listofGenres += genreName + ",";
+        				listofGenres += genreName + ", ";
         			else 
         				listofGenres += genreName;
         		} 
