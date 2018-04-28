@@ -14,13 +14,13 @@ function getParameterByName(target) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-let title = "";
-let year = "";
-let director = "";
-let star = "";
+let title = getParameterByName('title') ? getParameterByName('title') : "";
+let year = getParameterByName('year') ? getParameterByName('year') : "";
+let director = getParameterByName('director') ? getParameterByName('director') : "";
+let star = getParameterByName('star') ? getParameterByName('star') : "";
 let genre= getParameterByName('genre') ? getParameterByName('genre') : "";
 let pageNumber = getParameterByName('pageNumber') ? getParameterByName('pageNumber') : 1;
-let movieNumber = getParameterByName('movieNumber');
+let movieNumber = getParameterByName('movieNumber') ? getParameterByName('movieNumber') : 10;
 let queryUrl = "?title=" + title + "&genre=" + genre + "&year=" + year + "&director=" + director + "&star=" + star + "&pageNumber=";
 
 function handleResult(resultData) {

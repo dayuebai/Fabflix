@@ -32,6 +32,11 @@ public class DbServlet extends HttpServlet {
 		int movieNumber = Integer.parseInt(request.getParameter("movieNumber"));
 		int pageNumber = (Integer.parseInt(request.getParameter("pageNumber")) - 1) * movieNumber;
 		String genreQuery = request.getParameter("genre");
+		String titleQuery = request.getParameter("title");
+		String directorQuery = request.getParameter("director");
+		String starQuery = request.getParameter("star");
+		String yearQuery = request.getParameter("year"); // watch out type: year is int
+		
 		// Output stream to STDOUT
 		PrintWriter out = response.getWriter();
 
@@ -46,8 +51,17 @@ public class DbServlet extends HttpServlet {
 						+ "and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "';";
 			}
 			else {
-				queryCount = "select count(*) as total from movies;";
+				if (starQuery.equals(""))
+				{
+					// not join query
+					
+				}
+				else {
+					// need to join 
+				}
+//				queryCount = "select count(*) as total from movies;";
 			}
+			
 			PreparedStatement statementCount = dbcon.prepareStatement(queryCount);
 			ResultSet rsCount = statementCount.executeQuery();
 			int counter = 0;
