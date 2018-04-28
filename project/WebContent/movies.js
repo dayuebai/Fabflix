@@ -35,15 +35,22 @@ function handleResult(resultData) {
         rowHTML += "<div class='jumbotron'>";
         
 //        	"<tr><td style='text-align:left;'>Title:</td><td style='text-align:left;'>" + movieTitle + "</td></tr>"
-        	
+//      rowHTML += "<tr><td style='text-align:left;'><h2>Genres:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["listofGenres"] + "</h2></td></tr>";
+//      rowHTML += "<tr><td style='text-align:left;'><h2>ID:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieId"] + "</h2></td></tr>";
+        
         rowHTML += "<a style='font-weight: bold; font-size: 200%; text-decoration: underline;' href='#' class='movieTitle'>" + resultData[i]["movieName"] + "</a>";
-        	
         rowHTML += "<table width='800' border='0' cellspacing='0' cellpadding='0'><tr><td width='200'>&nbsp;</td><td>&nbsp;</td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Year:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieYear"] + "</h2></td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Director:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieDirector"] + "</h2></td></tr>";
         rowHTML += "<tr><td style='text-align:left;'><h2>Rating:</h2></td><td style='text-align:left;'><h2>" + (resultData[i]["movieRating"] ? resultData[i]["movieRating"] : "0.0") + "</h2></td></tr>";
-        rowHTML += "<tr><td style='text-align:left;'><h2>Genres:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["listofGenres"] + "</h2></td></tr>";
-        rowHTML += "<tr><td style='text-align:left;'><h2>ID:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["movieId"] + "</h2></td></tr>";
+
+        rowHTML += "<tr><td style='text-align:left;'><h2>Genres:</h2></td><td style='text-align:left;'>";
+        genreArray = resultData[i]["listofGenres"].split(",");
+        var k;
+        for (k = 0; k < genreArray.length - 1; k++)
+        	rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='#'>" + genreArray[k] + "</a>" + ", ";   
+        rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='#'>" + genreArray[k] + "</a>";  
+        rowHTML += "</td></tr>";
         
         rowHTML += "<tr><td style='text-align:left;'><h2>Stars:</h2></td><td style='text-align:left;'>";
         starArray = resultData[i]["listofStars"].split(",");

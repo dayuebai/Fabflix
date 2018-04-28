@@ -58,9 +58,9 @@ public class LoginServlet extends HttpServlet {
 				Statement statementUsername = dbCon.createStatement();
 				ResultSet resultSetUsername = statementUsername.executeQuery("select * from customers where email='" + username +"';");
 				if (resultSetUsername.next() == false)
-					responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+					responseJsonObject.addProperty("message", "User: " + username + " doesn't exist");
 				else
-					responseJsonObject.addProperty("message", "incorrect password");
+					responseJsonObject.addProperty("message", "Incorrect password");
 				response.getWriter().write(responseJsonObject.toString());
 				
 				resultSetUsername.close();

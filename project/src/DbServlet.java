@@ -31,6 +31,7 @@ public class DbServlet extends HttpServlet {
 		// Retrieve parameter id from url request.
 		int movieNumber = Integer.parseInt(request.getParameter("movieNumber"));
 		int pageNumber = (Integer.parseInt(request.getParameter("pageNumber")) - 1) * movieNumber;
+		String sortBy = "rating desc";
 		String genreQuery = request.getParameter("genre");
 		String titleQuery = request.getParameter("title");
 		String directorQuery = request.getParameter("director");
@@ -45,21 +46,24 @@ public class DbServlet extends HttpServlet {
 			Connection dbcon = dataSource.getConnection();
 
 			String queryCount = "";
-			if (!genreQuery.equals("")){
+			if (!genreQuery.equals("")) {
 				queryCount = "select count(*) as total from " + 
 						"movies, genres, genres_in_movies where movies.id=genres_in_movies.movieId "
 						+ "and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "';";
 			}
-			else {
-				if (starQuery.equals(""))
-				{
-					// not join query
+			else if (!starQuery.equals("")) {
 					
-				}
-				else {
-					// need to join 
-				}
-//				queryCount = "select count(*) as total from movies;";
+			}
+			else if (titleQuery.equals("") && directorQuery.equals("") && yearQuery.equals("")){
+				queryCount = "select count(*) as total from movies;";
+			}
+			else {
+				queryCount = String.format("select count(*) as total from movies " + 
+						"where lower(title) like lower(%s) AND " + 
+						"lower(director) like lower(%s)" +
+						(yearQuery.equals("") ? ";" : (" AND year=" + yearQuery + ";")), ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"));
+				System.out.println(queryCount);
+
 			}
 			
 			PreparedStatement statementCount = dbcon.prepareStatement(queryCount);
@@ -68,17 +72,31 @@ public class DbServlet extends HttpServlet {
 			while (rsCount.next()) {
 				counter = rsCount.getInt("total");
 			}
-			
+//			System.out.println(queryCount);
 			// Construct a query with parameter represented by "?"
+			// Placeholder cannot be used for columns' name, only be used for the value of parameter
 			String query = "";
 			if (!genreQuery.equals("")){
 				query = "select movies.id as movieId, title, year, director, rating from genres, genres_in_movies, movies left join ratings on movies.id=ratings.movieId " + 
 						"where movies.id=genres_in_movies.movieId " + 
 						"and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by rating desc limit ?, ?;";
 			}
+			else if (!starQuery.equals("")) {
+				
+			}
+			else if (titleQuery.equals("") && directorQuery.equals("") && yearQuery.equals("")) {
+				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
+						"order by %s limit ?, ?;", sortBy); 
+			}
 			else {
-				query = "select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-						"order by rating desc limit ?, ?;";
+				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
+						"where lower(title) like lower(%s) AND " + 
+						"lower(director) like lower(%s)" +
+						(yearQuery.equals("") ? " " : (" AND year=" + yearQuery )) + "order by %s limit ?, ?;", ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"), sortBy);
+						
+//						String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
+//						"order by %s limit ?, ?;", sortBy);
+				System.out.println(query);
 			}
 
 			// Declare our statement
@@ -134,7 +152,7 @@ public class DbServlet extends HttpServlet {
         		while (resultSetGenre.next()) {
         			String genreName = resultSetGenre.getString("name");
         			if (! resultSetGenre.isLast())
-        				listofGenres += genreName + ", ";
+        				listofGenres += genreName + ",";
         			else 
         				listofGenres += genreName;
         		} 
