@@ -11,7 +11,9 @@
 	 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-          
+    <!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    	
 	<!-- <link href="style.css" type="text/css" rel="stylesheet"> -->	
 	<style>
 		.carousel-inner > .item > img{
@@ -57,7 +59,7 @@
 	</style>
 </head>
 
-<body style="background-color: #000000; color: #ffffff;">
+<body style="background-color: #1c1b1a; color: #ffffff;">
 	
 	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
 		<ul class="navbar-nav mr-auto">
@@ -72,9 +74,9 @@
 			</li>
 		</ul>	
 
-		<form style="width: 100%; margin-left: 12%; margin-right: auto" class="form-inline" action="#">
+		<form style="width: 100%; margin-left: 20%; margin-right: auto" class="form-inline" method="get" action="movies.html">
 				<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-	    			<i>FabBy!</i>
+	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
 	  			</button>
 
 	  			<div class="modal fade" id="myModal">
@@ -85,82 +87,116 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>	
                             </div>	
                             <div style="color: #000000;" class="modal-body">
-                            	<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Action">Action</a>
-                            	<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Adventure">Adult</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Adventure">Adventure</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Animation">Animation</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Biography">Biography</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Comedy">Comedy</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Crime">Crime</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Documentary">Documentary</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Drama">Drama</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Family">Family</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Fantasy">Fantasy</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=History">History</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Horror">Horror</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Music">Music</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Musical">Musical</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Mystery">Mystery</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Reality-TV">Reality-TV</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Romance">Romance</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Sci-Fi">Sci-Fi</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Sport">Sport</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Thriller">Thriller</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=War">War</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&genre=Western">Western</a>
+                            	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
+                            	<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adult</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Comedy">Comedy</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Crime">Crime</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Documentary">Documentary</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Drama">Drama</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Family">Family</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Fantasy">Fantasy</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=History">History</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Horror">Horror</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Music">Music</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Musical">Musical</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Mystery">Mystery</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Reality-TV">Reality-TV</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Romance">Romance</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Sci-Fi">Sci-Fi</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Sport">Sport</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Thriller">Thriller</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=War">War</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Western">Western</a>
 							</div>
 							<div class="modal-header">
                                 <h4 style="color: black;" class="modal-title">Titles</h4>
                             </div>
                             <div style="color: black;" class="modal-body">
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=0">0</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=1">1</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=2">2</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=3">3</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=4">4</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=5">5</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=6">6</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=7">7</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=8">8</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=9">9</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=0">0</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=1">1</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=2">2</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=3">3</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=4">4</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=5">5</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=6">6</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=7">7</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=8">8</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=9">9</a>
 								<br>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=A">A</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=B">B</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=C">C</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=D">D</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=E">E</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=F">F</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=G">G</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=H">H</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=I">I</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=J">J</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=K">K</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=L">L</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=M">M</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=N">N</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=O">O</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=P">P</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=Q">Q</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=R">R</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=S">S</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=T">T</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=U">U</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=V">V</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=W">W</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=X">X</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=Y">Y</a>
-								<a style="margin: 12px 10px;" href="movies.html?movieNumber=10&title=Z">Z</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=A">A</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=B">B</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=C">C</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=D">D</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=E">E</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=F">F</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=G">G</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=H">H</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=I">I</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=J">J</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=K">K</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=L">L</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=M">M</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=N">N</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=O">O</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=P">P</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Q">Q</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=R">R</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=S">S</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=T">T</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=U">U</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=V">V</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=W">W</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=X">X</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Y">Y</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Z">Z</a>
 							</div>
 						</div>
 					</div>
 				</div>
 	  			
-	  			<input style="margin: 3px; background-color: #000000;" class="col-sm-4 form-control" type="text" placeholder="Find Movies, Stars...">
+	  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find Movies, Stars...">
 				<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
-					<i>Fabfab!</i>
+					<i class="fa fa-search fa-lg" aria-hidden="true"></i>
 				</button>
 		</form>
 
+		<div class="dropdown">
+			<button style="margin-right: 15px;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fa fa-database fa-lg" aria-hidden="true"></i>
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form action="movies.html" method="get">
+					<div style="padding:10px" class="form-group">
+						
+          				<input type="text" name="title" class="form-control" placeholder="By title... ">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="text" name="year" class="form-control" placeholder="By year...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="director" class="form-control" placeholder="By director...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="star" class="form-control" placeholder="By star's name...">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>
+				
+			</div>
+
+		</div>
+		<div>
+			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="#" > 
+				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
+			</a>
+		</div>
 	</nav>
 	
 	<video style="object-fit: fill; width: 100%; height: 550px; border-style: none;" autoplay muted loop>
@@ -169,7 +205,7 @@
 	</video>
 
 
-		<div style="padding: 10px; text-align: center; height: 93px;"><h3>Mission: Impossible - Fallout(2018)</h3><h4><i>Tom Cruise</i></h4></div>
+		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a style="color: #ffffff;" href="">Mission: Impossible - Fallout(2018)</a><br><a style="color: #ffffff;" href=""><i>Tom Cruise</a></i></a></div>
 		<div style="margin:2px 157px; height: 50px; font-size: 200%;"><strong>In Theatre</strong></div>
 
 		<div class="container">

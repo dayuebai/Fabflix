@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+	<!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="icon" href="fablix.png" type="image/png">
 	<title>Movies</title>
 	
@@ -35,6 +36,25 @@
 <body>
 	<h1>Movies</h1>
 	<div id="search_info"></div>
+	<hr noshade>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="text-center">
+					Sort by:  
+					<a href="movies.html?sort=title&order=asc">Title Asc</a>
+						<i style="color:red; vertical-align: bottom;" class="fa fa-sort-asc" aria-hidden="true"></i> 
+					|
+					<a href="movies.html?sort=title&order=desc">Title Desc</a>
+						<i style="color:green; vertical-align: top;" class="fa fa-sort-desc" aria-hidden="true"></i>
+					|
+					<a href="movies.html?sort=rating&order=asc">Rating Asc</a>
+						<i style="color:red; vertical-align: bottom;" class="fa fa-sort-asc" aria-hidden="true"></i> 
+					|
+					<a href="movies.html?sort=rating&order=desc">Rating Desc</a>
+						<i style="color:green; vertical-align: top;" class="fa fa-sort-desc" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
 	<div id="movie_list_body"></div>
 	<div class="container">
 		<div class="row justify-content-center">
