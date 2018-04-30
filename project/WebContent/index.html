@@ -26,6 +26,25 @@
 			color: #ffffff;
 			margin:10px 0px;
 		}
+		
+		a.nav-link{
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		a.nav-link:hover{
+			color: red;
+		}
+		
+		a.trailer{
+			color: #ffffff; 
+			text-decoration: none;
+		}
+		
+		a.trailer:hover{
+			color: red;
+		}
+		
 	    .footer{
 			/* position: ; */
 			bottom: 0;
@@ -50,6 +69,10 @@
 			text-decoration: none;
 		}
 		
+		.footer li a:hover{
+			color: red;
+		}
+		
 		.copyright{
 			color: #ffffff;
 			font-size: 12px;
@@ -67,14 +90,14 @@
 				<a style="font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
 			</li>
 			<li style="padding: 0px 15px;" class="nav-item">
-				<a class="nav-link btn-lg" style="color: #ffffff;" href="index.html">Home</a>
+				<a class="nav-link btn-lg"  href="index.html">Home</a>
 			</li>
 			<li style="padding: 0px 15px;" class="nav-item">
-				<a class="nav-link btn-lg" style="color: #ffffff;" href="movies.html">Movies</a>
+				<a class="nav-link btn-lg" href="movies.html">Movies</a>
 			</li>
 		</ul>	
 
-		<form style="width: 100%; margin-left: 20%; margin-right: auto" class="form-inline" method="get" action="movies.html">
+		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="movies.html">
 				<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
 	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
 	  			</button>
@@ -193,7 +216,7 @@
 
 		</div>
 		<div>
-			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="#" > 
+			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="cart.html" > 
 				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
 			</a>
 		</div>
@@ -205,7 +228,7 @@
 	</video>
 
 
-		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a style="color: #ffffff;" href="">Mission: Impossible - Fallout(2018)</a><br><a style="color: #ffffff;" href=""><i>Tom Cruise</a></i></a></div>
+		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a class="trailer" href="">Mission: Impossible - Fallout(2018)</a><br><a class="trailer" href=""><i>Tom Cruise</a></i></a></div>
 		<div style="margin:2px 157px; height: 50px; font-size: 200%;"><strong>In Theatre</strong></div>
 
 		<div class="container">
@@ -397,10 +420,10 @@
 				<li><a href="https://www.ics.uci.edu/~dayueb/">About Fabflix</a>
 				<li></li>
 				<li>|</li>
-				<li><a href="https://www.ics.uci.edu/~dayueb/">Register an Account</a>
+				<li><a href="login.html">Register an Account</a>
 				<li></li>
 				<li>|</li>
-				<li><a href="https://www.ics.uci.edu/~dayueb/">Checkout</a>
+				<li><a href="checkout.html">Checkout</a>
 				<li></li>
 				<li>|</li>
 				<li><a href="#"> Privacy Policy</a></li>

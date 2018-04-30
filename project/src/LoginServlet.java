@@ -76,27 +76,5 @@ public class LoginServlet extends HttpServlet {
             System.out.println(ex.getMessage());
             return;
         }
-//        if (username.equals("anteater") && password.equals("123456")) {
-//            // Login success:
-//
-//            // set this user into the session
-//            request.getSession().setAttribute("user", new User(username));
-//
-//            JsonObject responseJsonObject = new JsonObject();
-//            responseJsonObject.addProperty("status", "success");
-//            responseJsonObject.addProperty("message", "success");
-//
-//            response.getWriter().write(responseJsonObject.toString());
-//        } else {
-//            // Login fail
-//            JsonObject responseJsonObject = new JsonObject();
-//            responseJsonObject.addProperty("status", "fail");
-//            if (!username.equals("anteater")) {
-//                responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
-//            } else if (!password.equals("123456")) {
-//                responseJsonObject.addProperty("message", "incorrect password");
-//            }
-//            response.getWriter().write(responseJsonObject.toString());
-//        }
     }
 }

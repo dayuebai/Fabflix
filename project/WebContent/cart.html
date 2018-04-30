@@ -12,17 +12,13 @@
 	<!-- This is link to font-awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="icon" href="fablix.png" type="image/png">
-	<title>Movies</title>
+	<title>Shopping Cart</title>
 	
 	<style>
 	
 		body{
 			background-color: white;
 			color: black;
-		}
-		
-		a.movieTitle{
-			color: red;
 		}
 
 		a:hover{
@@ -35,17 +31,13 @@
 </head>
 <body>
 	<a href="index.html"><h1>Home</h1></a>
-	<h1>Movies</h1>
 	
-	<div id="search_info"></div>
+	<h1>Shopping Cart</h1>
+	<a style="margin-right: 10%;" class='btn btn-primary float-right' href="checkout.html" role='button'>Proceed to checkout</a>
 	
-	<hr noshade>
 	
-	<div id="sort_bar"></div>
+	<div id="cart_info"></div>
 	
-	<div id="movie_list_body"></div>
-	
-	<div id="footerBar"></div>
 	
 	<!-- Load jQuery and Bootstrap JS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -56,7 +48,7 @@
 	<!-- The path is relative to single-star.html, since these two files are in the same directory -->
 	<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
 	     otherwise the url is relative to the root path-->
-	<script src="movies.js"></script>
+	<script src="cart.js"></script>
 	
 </body>
 </html>
