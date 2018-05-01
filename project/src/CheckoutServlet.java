@@ -6,13 +6,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = "/checkout")
 public class CheckoutServlet extends HttpServlet {
@@ -25,7 +27,7 @@ public class CheckoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Retrieve session attribute
-//		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		
 		
 		// Response mime type
@@ -40,6 +42,8 @@ public class CheckoutServlet extends HttpServlet {
 		// For test
 		System.out.println(cNumber + " " + fName + " " +
 							lName + " " + expiration);
+		
+		HashMap<String, ArrayList<String>> cartMap = ((User) session.getAttribute("user")).getCart();
 		
 		// Output stream to STDOUT
 		PrintWriter out = response.getWriter();
@@ -61,7 +65,22 @@ public class CheckoutServlet extends HttpServlet {
     		
 			if(resultSet.next()) {
 				// Insert sale record to sales table
+				String customerId = Integer.toString( ((User) session.getAttribute("user")).getUserId() );
 				
+				for (String movieId : cartMap.keySet())
+				{
+	        		String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
+										"VALUES(" + customerId + ",'" + movieId + "',NOW())";
+	        		
+	        		Statement updateStatement = dbcon.createStatement();
+	        		updateStatement.executeUpdate(updateQuery);
+	        		
+	        		updateStatement.close();
+				}
+
+				
+				// If success, clear shopping cart
+				// ((User) session.getAttribute("user")).clearCart();
 				
 				// For Test
 				System.out.println("find something");

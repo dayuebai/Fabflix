@@ -40,7 +40,7 @@ function handleResult(resultData) {
     	movieSearchResultElement.append("<h5>Movie Not Found</h5>");
     else{
     	resultCount = resultData[0]["totalFound"];
-    	movieSearchResultElement.append("<h5>Found " + resultData[0]["totalFound"].toString() + "</h5>");
+    	movieSearchResultElement.append("<p>" + resultData[0]["totalFound"].toString() + " result(s) found</p>");
     }
     
     // #id: sort
@@ -50,16 +50,15 @@ function handleResult(resultData) {
     	sortElement.append("<div class='container'>" + 
     							"<div class='row justify-content-center'>" + 
     								"<div class='text-center'>" + 
-    									"Sort by:" +
     									"<a href='movies.html?sort=title&order=asc" + urlHelper + "'>Title</a>" + 
     									"<i style='color:red; vertical-align: bottom;' class='fa fa-sort-asc' aria-hidden='true'></i>" + 
-    									"|" + 
+    									" | " + 
     									"<a href='movies.html?sort=title&order=desc" + urlHelper + "'>Title</a>" + 
     									"<i style='color:green; vertical-align: top;' class='fa fa-sort-desc' aria-hidden='true'></i>" +    									
-    									"|" + 
+    									" | " + 
     									"<a href='movies.html?sort=rating&order=asc" + urlHelper + "'>Rating</a>" + 
     									"<i style='color:red; vertical-align: bottom;' class='fa fa-sort-asc' aria-hidden='true'></i>" + 
-    									"|" + 
+    									" | " + 
     									"<a href='movies.html?sort=rating&order=desc" + urlHelper + "'>Rating</a>" + 
     									"<i style='color:green; vertical-align: top;' class='fa fa-sort-desc' aria-hidden='true'></i>" +
     								"</div>" + 
@@ -73,7 +72,7 @@ function handleResult(resultData) {
     let movieTableBodyElement = jQuery("#movie_list_body");
     for (let i = 0; i < Math.min(movieNumber, resultData.length); i++) {
         let rowHTML = "<div class='container'>";
-        rowHTML += "<div class='jumbotron'>";
+        rowHTML += "<div class='jumbotron bg-dark'>";
         
 //        	"<tr><td style='text-align:left;'>Title:</td><td style='text-align:left;'>" + movieTitle + "</td></tr>"
 //      rowHTML += "<tr><td style='text-align:left;'><h2>Genres:</h2></td><td style='text-align:left;'><h2>" + resultData[i]["listofGenres"] + "</h2></td></tr>";
@@ -81,7 +80,7 @@ function handleResult(resultData) {
        
         rowHTML += "<div class='row justify-content-end'>" + 
 	        		   "<div class='col'>" + 
-	        				"<a style='font-weight: bold; font-size: 200%; text-decoration: underline;' href='movies.html?id=" + resultData[i]["movieId"] + "'" + " class='movieTitle'>" + resultData[i]["movieName"] + "</a>" + 
+	        				"<a style='font-weight: bold; font-size: 200%;' href='movies.html?id=" + resultData[i]["movieId"] + "'" + " class='movieTitle'>" + resultData[i]["movieName"] + "</a>" + 
 	        		   "</div>"	+ 
 	        		   "<div class='col-2'>" + 
 	       					"<a style='margin-right: 8px;' class='btn btn-danger' style='color:white' href='cart.html?" + "cId=" + resultData[i]["movieId"] + "&cName=" + resultData[i]["movieName"] + "&cAmount=1&amount=" + "'>" + 
@@ -98,8 +97,8 @@ function handleResult(resultData) {
         genreArray = resultData[i]["listofGenres"].split(",");
         var k;
         for (k = 0; k < genreArray.length - 1; k++)
-        	rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='movies.html?genre=" + genreArray[k] + "'>" + genreArray[k] + "</a>" + ", ";   
-        rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='movies.html?genre=" + genreArray[k] + "'>" + genreArray[k] + "</a>";  
+        	rowHTML += "<a class='genre' href='movies.html?genre=" + genreArray[k] + "'>" + genreArray[k] + "</a>" + ", ";   
+        rowHTML += "<a class='genre' href='movies.html?genre=" + genreArray[k] + "'>" + genreArray[k] + "</a>";  
         rowHTML += "</td></tr>";
         
         rowHTML += "<tr><td style='text-align:left;'><h2>Stars:</h2></td><td style='text-align:left;'>";
@@ -108,8 +107,8 @@ function handleResult(resultData) {
       
         var j;
         for (j = 0; j < starArray.length - 1; j++)
-        	rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='stars.html?starId=" + starIdArray[j] + "'>" + starArray[j] + "</a>" + ", ";   
-        rowHTML += "<a style='font-size: 150%; text-decoration: underline;' href='stars.html?starId=" + starIdArray[j] + "'>" + starArray[j] + "</a>";  
+        	rowHTML += "<a class='star' href='stars.html?starId=" + starIdArray[j] + "'>" + starArray[j] + "</a>" + ", ";   
+        rowHTML += "<a class='star' href='stars.html?starId=" + starIdArray[j] + "'>" + starArray[j] + "</a>";  
         rowHTML += "</td></tr>";
         
 //        "<a style='font-size: large; color: red; text-decoration: underline;' href='#'>" 
@@ -126,6 +125,9 @@ function handleResult(resultData) {
     
 	if (resultCount > 1) {   
 	    var pagString = "<div class='container'>" + 
+							"<div class='row justify-content-center'>" + 
+								"<a style='color: #b5462b; margin: 0; text-decoration: underline;' href='#top'>Back to top</a>" + 
+							"</div>" + 
     						"<div class='row justify-content-center'>" + 
     							"<div style='margin: 5px;' class='col-xs-5'>" +
     								"<ul class='pagination'>";
@@ -139,7 +141,7 @@ function handleResult(resultData) {
 	    }
 	    
 	    if (Math.ceil(resultCount / movieNumber) >= 4) {
-	    	pagString += "<li class='page-item disabled'><a class='page-link' href='#'>...</a></li>";
+	    	pagString += "<li class='page-item'><a class='page-link' href=''>...</a></li>";
 	    	pagString += "<li class='page-item'><a class='page-link' href='movies.html" + queryUrl + Math.ceil(resultCount / movieNumber).toString() + "&movieNumber=" + movieNumber.toString() + "'>" + Math.ceil(resultCount / movieNumber).toString() + "</a></li>";
 	    }
 			
@@ -150,7 +152,7 @@ function handleResult(resultData) {
 		
 		pagString += "<div style='margin: 5px;' class='col-xs-5'>" + 
 						"<div class='dropup'>" + 
-							"<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>" + 
+							"<button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown'>" + 
 								"Movies per Page" + 
 							"</button>" + 
 							"<div class='dropdown-menu'>" + 
@@ -158,17 +160,35 @@ function handleResult(resultData) {
 								"<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=25'>" + "25</a>" + 
 								"<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=50'>" + "50</a>" + 
 								"<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=100'>" + "100</a>" + 
-							"</div></div></div></div></div>";
+							"</div></div></div></div>" + "</div>";
 		
 		footerElement.append(pagString);
-							
-//		footerElement.append("<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=10'>" + "10</a>");
-//		footerElement.append("<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=25'>" + "25</a>");
-//		footerElement.append("<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=50'>" + "50</a>");
-//		footerElement.append("<a class='dropdown-item' href='movies.html" + queryUrl + "1&movieNumber=100'>" + "100</a>");
-//		footerElement.append("</div></div></div></div></div>");
     }
 	
+	if (resultCount != 0)
+	{
+		// class footer copyright
+		let copyrightElement = jQuery(".footer");
+		
+	    footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
+						"<ul style='align: middle; padding: 0;'>" + 
+							"<li><a href='index.html'>Home</a>" + 
+							"<li></li>" + 
+							" <li>|</li> " + 
+							"<li><a href='https://www.ics.uci.edu/~dayueb/'>About Fabflix</a>" + 
+							"<li></li>" + 
+							" <li>|</li> " + 
+							"<li><a href='login.html'>Register an Account</a>" + 
+							"<li></li>" + 
+							" <li>|</li> " + 
+							"<li><a href='checkout.html'>Checkout</a>" + 
+							"<li></li>" + 
+							" <li>|</li> " + 
+							"<li><a href='#'> Privacy Policy</a></li>" + 
+						"</ul>" + 
+						"<p align='middle' class='copyright'>Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>";
+	    copyrightElement.append(footerString);
+	}
 	// For test
 	console.log(Math.ceil(resultCount / movieNumber).toString());
 	//	let dropupElement = jQuery(".dropdown-menu");
@@ -181,3 +201,6 @@ jQuery.ajax( {
 	url: "api/db" + queryUrl + pageNumber + "&movieNumber=" + movieNumber,
 	success: (resultData) => handleResult(resultData)
 });
+
+// For test: to see what url is actually sent to Backend Java Servlet
+console.log("api/db" + queryUrl + pageNumber + "&movieNumber=" + movieNumber)

@@ -109,9 +109,9 @@ public class DbServlet extends HttpServlet {
 						"where movies.id='" + idQuery + "' order by rating desc limit ?, ?;";
 			}
 			else if (!genreQuery.equals("")){
-				query = "select movies.id as movieId, title, year, director, rating from genres, genres_in_movies, movies left join ratings on movies.id=ratings.movieId " + 
+				query = String.format("select movies.id as movieId, title, year, director, rating from genres, genres_in_movies, movies left join ratings on movies.id=ratings.movieId " + 
 						"where movies.id=genres_in_movies.movieId " + 
-						"and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by rating desc limit ?, ?;";
+						"and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by %s limit ?, ?;", sortBy);
 			}
 			else if (!starQuery.equals("")) {
 				query = String.format("select movies.id as movieId, title, year, director, rating " +
@@ -127,14 +127,11 @@ public class DbServlet extends HttpServlet {
                         "lower(director) like lower(%s)" +
                         (yearQuery.equals("") ? "" : (" AND year=" + yearQuery )) + 
                         " order by %s limit ?, ?;",
-                        ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"), sortBy); // string format args
-                System.out.println(query);
-				
+                        ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"), sortBy); // string format args	
 			}
 			else if (titleQuery.equals("") && directorQuery.equals("") && yearQuery.equals("")) {
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
 						"order by %s limit ?, ?;", sortBy); 
-				System.out.println(query);
 			}
 			else {
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
@@ -143,10 +140,12 @@ public class DbServlet extends HttpServlet {
 						(yearQuery.equals("") ? "" : (" AND year=" + yearQuery )) + " order by %s limit ?, ?;", ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"), sortBy);
 						
 //						String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-//						"order by %s limit ?, ?;", sortBy);
-				System.out.println(query);
+//						"order by %s limit ?, ?;", sortBy);	
 			}
-
+			
+			// For test
+			System.out.println("Acutal sent query: " + query);
+			
 			// Declare our statement
 			PreparedStatement statement = dbcon.prepareStatement(query);
 

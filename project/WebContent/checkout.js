@@ -1,5 +1,4 @@
 function handleResult(resultData) {
-	let responseElement = jQuery("#server_response");
 	
 	console.log("handle login response");
 	console.log(resultData);
@@ -10,8 +9,9 @@ function handleResult(resultData) {
 		console.log(resultData["message"]);
 		
 		document.getElementById("payment_form").reset();
-		let rowHTML = resultData["message"];
-		responseElement.append(rowHTML);
+//		let rowHTML = resultData["message"];
+//		responseElement.append(rowHTML);
+		alert("Payment information not match");
 	}
 	else if (resultData["status"] === "success") {
 		window.location.replace("confirmation.html");

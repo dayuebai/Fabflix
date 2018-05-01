@@ -27,34 +27,27 @@
 			margin:10px 0px;
 		}
 		
-		a.nav-link{
-			color: #ffffff;
-			text-decoration: none;
-		}
-
-		a.nav-link:hover{
-			color: red;
-		}
-		
-		a.trailer{
+		a.nav-link, a.trailer, a.weekly_stars, a.in_theatre{
 			color: #ffffff; 
 			text-decoration: none;
 		}
 		
-		a.trailer:hover{
+		a.nav-link:hover, a.trailer:hover, a.weekly_stars:hover, a.in_theatre:hover{
 			color: red;
 		}
 		
 	    .footer{
-			/* position: ; */
+			position: relative;
 			bottom: 0;
-			left: 35%;
+			width: 100%;
 			height: 10px;
 			padding: 0;
 			margin: 0;
+			background-color: #000000;
 		}
 		
 		.footer ul{
+			background-color: #000000;
 			text-align: center;
 			margin: 0;
 		}
@@ -74,6 +67,7 @@
 		}
 		
 		.copyright{
+			background-color: #000000;
 			color: #ffffff;
 			font-size: 12px;
 			text-align: center;
@@ -228,8 +222,8 @@
 	</video>
 
 
-		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a class="trailer" href="">Mission: Impossible - Fallout(2018)</a><br><a class="trailer" href=""><i>Tom Cruise</a></i></a></div>
-		<div style="margin:2px 157px; height: 50px; font-size: 200%;"><strong>In Theatre</strong></div>
+		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a class="trailer" href="https://www.imdb.com/title/tt4912910/?ref_=nv_sr_1">Mission: Impossible - Fallout(2018)</a><br><a class="trailer" href="https://www.imdb.com/name/nm0000129/?ref_=fn_al_nm_1"><i>Tom Cruise</a></i></a></div>
+		<div style="margin:2px 157px; height: 50px; font-size: 200%;"><a class="in_theatre" href="https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_inth_1"><strong>In Theatre</strong></a></div>
 
 		<div class="container">
 	 	<div class="row justify-content-center">
@@ -319,7 +313,7 @@
 		</div>
 	
 		<div style="height: 50px;"></div>
-		<div style="margin:2px 157px; font-size: 200%;"><strong>Weekly Stars</strong></div>
+		<div style="margin:2px 157px; font-size: 200%;"><a class="weekly_stars" href="https://www.imdb.com/search/name?gender=male,female&ref_=nv_tp_cel_1"><strong>Weekly Stars</strong></a></div>
 		
 		<div class="container">
 	 	<div class="row justify-content-center">
@@ -423,7 +417,7 @@
 				<li><a href="login.html">Register an Account</a>
 				<li></li>
 				<li>|</li>
-				<li><a href="checkout.html">Checkout</a>
+				<li><a href="cart.html">Checkout</a>
 				<li></li>
 				<li>|</li>
 				<li><a href="#"> Privacy Policy</a></li>

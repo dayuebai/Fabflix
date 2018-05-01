@@ -39,12 +39,13 @@ public class LoginServlet extends HttpServlet {
             // Generate a SQL query
             String username = request.getParameter("email");
             String password = request.getParameter("password");
-            String query = "select * from customers where email='" + username + "' and password='" + password + "';";
+            String query = "select id from customers where email='" + username + "' and password='" + password + "';";
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
             if (rs.next()) {
-            	request.getSession().setAttribute("user", new User(username));
+            	int customerId = rs.getInt("id");
+            	request.getSession().setAttribute("user", new User(username, customerId));
             	
             	JsonObject responseJsonObject = new JsonObject();
             	responseJsonObject.addProperty("status", "success");

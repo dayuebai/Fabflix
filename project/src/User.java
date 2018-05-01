@@ -10,16 +10,25 @@ import java.util.ArrayList;
 public class User {
 
     private final String username;
-    
+    private final int id;
     private HashMap<String, ArrayList<String>> cart;
 
-    public User(String username) {
+    public User(String username, int Id) {
         this.username = username;
+        this.id = Id;
         this.cart = new HashMap<>();
     }
-
+    
+    public int getUserId() {
+    	return this.id;
+    }
+    
     public String getUsername() {
         return this.username;
+    }
+    
+    public void clearCart() {
+    	this.cart = new HashMap<>();
     }
     
     public HashMap<String, ArrayList<String>> getCart() {

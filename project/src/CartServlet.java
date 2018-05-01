@@ -31,15 +31,22 @@ public class CartServlet extends HttpServlet {
 		// Response mime type
 		response.setContentType("application/json");
 		
+		// For test
+		System.out.println(request.getRequestURL());
+		
 		// Retrieve parameter from url request.
 		String cId = request.getParameter("cId");
 		String cName = request.getParameter("cName");
 		String cAmount = request.getParameter("cAmount");
 		String amount = request.getParameter("amount");
-		System.out.println(cAmount);
+		String action = request.getParameter("action");
+		
 		if (!cId.equals("")) {
 			if (amount.equals("")) {
 				((User) session.getAttribute("user")).changeAmount(cId, cName, -1, Integer.parseInt(cAmount));
+			}
+			else if (action.equals("Remove")) {
+				((User) session.getAttribute("user")).changeAmount(cId, cName, 0, -1);
 			}
 			else if (Integer.parseInt(amount) >= 0){
 				((User) session.getAttribute("user")).changeAmount(cId, cName, Integer.parseInt(amount), -1);
