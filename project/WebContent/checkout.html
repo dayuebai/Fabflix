@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="icon" href="fablix.png" type="image/png">
+	<title>Checkout</title>
+	
+	<style>
+	
+		body{
+			background-color: #1c1b1a;
+			color: #ffffff;
+		}
+		
+		a.nav-link{
+			color: #ffffff; 
+			text-decoration: none;
+		}
+		
+		a.nav-link:hover{
+			color: red;
+		}
+		
+	</style>
+	
+</head>
+<body id="top">
+	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
+		<ul class="navbar-nav mr-auto">
+			<li style="padding: 3px 0px 0px 10px;" class="nav-item">
+				<a style="font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg"  href="index.html">Home</a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg" href="movies.html">Movies</a>
+			</li>
+		</ul>	
+
+		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="movies.html">		
+  			<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
+	  		</button>
+  			<div class="modal fade" id="myModal">
+                   <div class="modal-dialog modal-dialog-centered">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <h4 style="color: black;" class="modal-title">Genres</h4>
+                               <button type="button" class="close" data-dismiss="modal">&times;</button>	
+                           </div>	
+                           <div style="color: #000000;" class="modal-body">
+                           	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
+                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adult</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Comedy">Comedy</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Crime">Crime</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Documentary">Documentary</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Drama">Drama</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Family">Family</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Fantasy">Fantasy</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=History">History</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Horror">Horror</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Music">Music</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Musical">Musical</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Mystery">Mystery</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Reality-TV">Reality-TV</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Romance">Romance</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Sci-Fi">Sci-Fi</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Sport">Sport</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Thriller">Thriller</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=War">War</a>
+							<a style="margin: 12px 10px;" href="movies.html?genre=Western">Western</a>
+						</div>
+						<div class="modal-header">
+                               <h4 style="color: black;" class="modal-title">Titles</h4>
+                           </div>
+                           <div style="color: black;" class="modal-body">
+							<a style="margin: 12px 10px;" href="movies.html?title=0">0</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=1">1</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=2">2</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=3">3</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=4">4</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=5">5</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=6">6</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=7">7</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=8">8</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=9">9</a>
+							<br>
+							<a style="margin: 12px 10px;" href="movies.html?title=A">A</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=B">B</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=C">C</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=D">D</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=E">E</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=F">F</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=G">G</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=H">H</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=I">I</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=J">J</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=K">K</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=L">L</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=M">M</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=N">N</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=O">O</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=P">P</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=Q">Q</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=R">R</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=S">S</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=T">T</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=U">U</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=V">V</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=W">W</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=X">X</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=Y">Y</a>
+							<a style="margin: 12px 10px;" href="movies.html?title=Z">Z</a>
+						</div>
+					</div>
+				</div>
+			</div>
+  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find Movies, Stars...">
+			<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
+				<i class="fa fa-search fa-lg" aria-hidden="true"></i>
+			</button>
+		</form>
+
+		<div class="dropdown">
+			<button style="margin-right: 15px;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fa fa-database fa-lg" aria-hidden="true"></i>
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form action="movies.html" method="get">
+					<div style="padding:10px" class="form-group">
+						
+          				<input type="text" name="title" class="form-control" placeholder="By title... ">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="text" name="year" class="form-control" placeholder="By year...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="director" class="form-control" placeholder="By director...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="star" class="form-control" placeholder="By star's name...">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div>
+			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="cart.html" > 
+				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
+			</a>
+		</div>
+	</nav>
+	
+	<div style="height: 30px; align: center" id="alert_info"></div>
+	
+	<div class="container">
+		<div style="min-height: 600px;" class="jumbotron bg-dark">
+			<div style="margin-bottom: 40px;" class="row justify-content-center">
+				<h1>Payment Form</h1>
+			</div>
+			<div id="check_info">
+				<form id="payment_form" ACTION="#">
+				  	<div class="form-group row justify-content-center">
+					  	<div class="col-6">
+					  		<div class="input-group mb-3">
+	  							<div class="input-group-prepend">
+	    							<span class="input-group-text">Card Number</span>
+	  							</div>
+	  							<input type="text" class="form-control" name="cNumber" required>
+							</div>
+						</div>
+
+			  		</div>
+			  		<div class="form-group row justify-content-center">
+			  			<div class="col-6">
+					  		<div class="input-group mb-3">
+		  						<div class="input-group-prepend">
+		    						<span class="input-group-text">First Name</span>
+		  						</div>
+		  						<input type="text" class="form-control" name="fName" required>
+							</div>
+						</div>
+					</div>
+
+			  		<div class="form-group row justify-content-center">
+			  			<div class="col-6">
+					  		<div class="input-group mb-3">
+		  						<div class="input-group-prepend">
+		    						<span class="input-group-text">Last Name</span>
+		  						</div>
+		  						<input type="text" class="form-control" name="lName" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group row justify-content-center">
+						<div class="col-6">
+							<div class="input-group mb-3">
+		  						<div class="input-group-prepend">
+		    						<span class="input-group-text">Expiration Date</span>
+		  						</div>
+		  						<input type="date" class="form-control" name="expiration" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row justify-content-center"> 
+			  			<button type="submit" class="btn btn-primary">Place your order</button>
+			  		</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- Load jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+	<!-- Load our own JS file -->
+	<!-- The path is relative to single-star.html, since these two files are in the same directory -->
+	<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
+	     otherwise the url is relative to the root path-->
+	<script src="checkout.js"></script>
+	
+</body>
+</html>

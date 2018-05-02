@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="UTF-8">
+    <meta name="viewport"
+         content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Fabflix</title>
+	<link rel="icon" href="fablix.png" type="image/png">
+	 <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    	
+	<!-- <link href="style.css" type="text/css" rel="stylesheet"> -->	
+	<style>
+		.carousel-inner > .item > img{
+	     margin: 0px 50px;
+	     width: 40%;
+	     height: 40%;
+	    }
+	    
+	    hr {
+			color: #ffffff;
+			margin:10px 0px;
+		}
+		
+		a.nav-link, a.trailer, a.weekly_stars, a.in_theatre{
+			color: #ffffff; 
+			text-decoration: none;
+		}
+		
+		a.nav-link:hover, a.trailer:hover, a.weekly_stars:hover, a.in_theatre:hover{
+			color: red;
+		}
+		
+	    .footer{
+			position: relative;
+			bottom: 0;
+			width: 100%;
+			height: 10px;
+			padding: 0;
+			margin: 0;
+			background-color: #000000;
+		}
+		
+		.footer ul{
+			background-color: #000000;
+			text-align: center;
+			margin: 0;
+		}
+		
+		.footer li{
+			display: inline-block;
+		}
+		
+		.footer li a{
+			font-size: 13px;
+			color: #ffffff;
+			text-decoration: none;
+		}
+		
+		.footer li a:hover{
+			color: red;
+		}
+		
+		.copyright{
+			background-color: #000000;
+			color: #ffffff;
+			font-size: 12px;
+			text-align: center;
+			margin: 0;
+		}
+	</style>
+</head>
+
+<body style="background-color: #1c1b1a; color: #ffffff;">
+	
+	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
+		<ul class="navbar-nav mr-auto">
+			<li style="padding: 3px 0px 0px 10px;" class="nav-item">
+				<a style="font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg"  href="index.html">Home</a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg" href="movies.html">Movies</a>
+			</li>
+		</ul>	
+
+		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="movies.html">
+				<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
+	  			</button>
+
+	  			<div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 style="color: black;" class="modal-title">Genres</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>	
+                            </div>	
+                            <div style="color: #000000;" class="modal-body">
+                            	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
+                            	<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adult</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Comedy">Comedy</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Crime">Crime</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Documentary">Documentary</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Drama">Drama</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Family">Family</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Fantasy">Fantasy</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=History">History</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Horror">Horror</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Music">Music</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Musical">Musical</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Mystery">Mystery</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Reality-TV">Reality-TV</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Romance">Romance</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Sci-Fi">Sci-Fi</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Sport">Sport</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Thriller">Thriller</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=War">War</a>
+								<a style="margin: 12px 10px;" href="movies.html?genre=Western">Western</a>
+							</div>
+							<div class="modal-header">
+                                <h4 style="color: black;" class="modal-title">Titles</h4>
+                            </div>
+                            <div style="color: black;" class="modal-body">
+								<a style="margin: 12px 10px;" href="movies.html?title=0">0</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=1">1</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=2">2</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=3">3</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=4">4</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=5">5</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=6">6</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=7">7</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=8">8</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=9">9</a>
+								<br>
+								<a style="margin: 12px 10px;" href="movies.html?title=A">A</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=B">B</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=C">C</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=D">D</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=E">E</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=F">F</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=G">G</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=H">H</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=I">I</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=J">J</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=K">K</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=L">L</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=M">M</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=N">N</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=O">O</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=P">P</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Q">Q</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=R">R</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=S">S</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=T">T</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=U">U</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=V">V</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=W">W</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=X">X</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Y">Y</a>
+								<a style="margin: 12px 10px;" href="movies.html?title=Z">Z</a>
+							</div>
+						</div>
+					</div>
+				</div>
+	  			
+	  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find Movies, Stars...">
+				<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
+					<i class="fa fa-search fa-lg" aria-hidden="true"></i>
+				</button>
+		</form>
+
+		<div class="dropdown">
+			<button style="margin-right: 15px;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fa fa-database fa-lg" aria-hidden="true"></i>
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form action="movies.html" method="get">
+					<div style="padding:10px" class="form-group">
+						
+          				<input type="text" name="title" class="form-control" placeholder="By title... ">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="text" name="year" class="form-control" placeholder="By year...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="director" class="form-control" placeholder="By director...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="star" class="form-control" placeholder="By star's name...">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>
+				
+			</div>
+
+		</div>
+		<div>
+			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="cart.html" > 
+				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
+			</a>
+		</div>
+	</nav>
+	
+	<video style="object-fit: fill; width: 100%; height: 550px; border-style: none;" autoplay muted loop>
+  		<source src="mi_trailer.mov" type="video/mp4">
+  		
+	</video>
+
+
+		<div style="padding: 10px; text-align: center; height: 93px; font-size: 200%"><a class="trailer" href="https://www.imdb.com/title/tt4912910/?ref_=nv_sr_1">Mission: Impossible - Fallout(2018)</a><br><a class="trailer" href="https://www.imdb.com/name/nm0000129/?ref_=fn_al_nm_1"><i>Tom Cruise</a></i></a></div>
+		<div style="margin:2px 157px; height: 50px; font-size: 200%;"><a class="in_theatre" href="https://www.imdb.com/movies-in-theaters/?ref_=nv_mv_inth_1"><strong>In Theatre</strong></a></div>
+
+		<div class="container">
+	 	<div class="row justify-content-center">
+	 	<div class="col-xs">
+		<div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
+			<ul class="carousel-indicators">
+			  <li data-target="#demo" data-slide-to="0" class="active"></li>
+			  <li data-target="#demo" data-slide-to="1"></li>
+			  <li data-target="#demo" data-slide-to="2"></li>
+			  <li data-target="#demo" data-slide-to="3"></li>
+			  <li data-target="#demo" data-slide-to="4"></li>
+			  <li data-target="#demo" data-slide-to="5"></li>
+			</ul>
+	 		<div class="carousel-inner">
+	    		<div class="carousel-item active">
+	     			 <a href="https://www.imdb.com/title/tt6217608/?ref_=fn_al_tt_1">
+	     			 	<img src="https://ia.media-imdb.com/images/M/MV5BMjMwODg4MDg4MF5BMl5BanBnXkFtZTgwNzIwMDYxMzI@._V1_.jpg" alt="The Rider" width="1125" height="500">
+	      			 </a>
+	      			 <div class="carousel-caption">
+	        		 	<h3>The Rider</h3>
+	        			<h5>Brady Jandreau in The Rider (2017)</h5>
+	      			 </div>   
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/title/tt1825683/?ref_=fn_al_tt_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BNDg3MTY3ODMzMV5BMl5BanBnXkFtZTgwODgwMDk1NDM@._V1_SX1777_CR0,0,1777,937_AL_.jpg" alt="Black Panther" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Black Panther</h3>
+	        			<h5>Chadwick Boseman, Lupita Nyong'o, and Letitia Wright in Black Panther (2018)</h5>
+	      			</div>   
+	    		</div>
+	    		
+	   			<div class="carousel-item">
+	   				<a href="https://www.imdb.com/title/tt5314190/?ref_=nv_sr_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BNzQ5NWI3YjMtYjMyYS00N2RkLTg3YTEtNDU0YTdlMzA0YWQ1XkEyXkFqcGdeQXVyMDYzMzczNw@@._V1_SX1777_CR0,0,1777,999_AL_.jpg" alt="Sgt. Stubby: An American Hero " width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Sgt. Stubby: An American Hero </h3>
+	        			<h5>So cute!!!</h5>
+	      			</div> 
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/title/tt5013056/?ref_=fn_al_tt_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BNjA4MzEzOTc0N15BMl5BanBnXkFtZTgwOTcyNDY4MjI@._V1_SX1777_CR0,0,1777,744_AL_.jpg" alt="Dunkirk" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Dunkirk</h3>
+	        			<h5>Kenneth Branagh in Dunkirk (2017)</h5>
+	      			</div> 
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/title/tt1677720/?ref_=nv_sr_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BMTYyMDkzMzQ2MF5BMl5BanBnXkFtZTgwMTc0MjQxNTM@._V1_SX1500_CR0,0,1500,999_AL_.jpg" alt="Ready Player One" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Ready Player One</h3>
+	        			<h5>Lena Waithe, Win Morisaki, Olivia Cooke, and Philip Zhao in Ready Player One (2018)</h5>
+	      			</div> 
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/title/tt5164432/?ref_=nv_sr_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BNjM0OGNlODMtZTRlOC00ZDQzLWI4N2YtMzQ0M2Q3NTY3MzY1XkEyXkFqcGdeQXVyNjAzNzg5MjI@._V1_.jpg" alt="Love, Simon" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Love, Simon</h3>
+	        			<h5>Nick Robinson in Love, Simon (2018)</h5>
+	      			</div> 
+	    		</div>
+	
+	  		</div>
+	  		
+		  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+		    <span class="carousel-control-prev-icon"></span>
+		  </a>
+		  <a class="carousel-control-next" href="#demo" data-slide="next">
+		    <span class="carousel-control-next-icon"></span>
+		  </a>
+		</div>
+		
+		</div>
+		</div>
+		</div>
+	
+		<div style="height: 50px;"></div>
+		<div style="margin:2px 157px; font-size: 200%;"><a class="weekly_stars" href="https://www.imdb.com/search/name?gender=male,female&ref_=nv_tp_cel_1"><strong>Weekly Stars</strong></a></div>
+		
+		<div class="container">
+	 	<div class="row justify-content-center">
+	 	<div class="col-xs">
+		<div id="demo1" class="carousel slide" data-ride="carousel" data-interval="3000">
+			<ul class="carousel-indicators">
+			  <li data-target="#demo1" data-slide-to="0" class="active"></li>
+			  <li data-target="#demo1" data-slide-to="1"></li>
+			  <li data-target="#demo1" data-slide-to="2"></li>
+			  <li data-target="#demo1" data-slide-to="3"></li>
+			  <li data-target="#demo1" data-slide-to="4"></li>
+			  <li data-target="#demo1" data-slide-to="5"></li>
+			</ul>
+	 		<div class="carousel-inner">
+	 		
+	 			<div class="carousel-item active">
+	 				<a href="https://www.imdb.com/name/nm0000138/?ref_=nv_sr_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BZTljYjQxZjQtZTkyOC00MzcxLTljNmEtZTRjNTcxOGFlYzljXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX1777_CR0,0,1777,755_AL_.jpg" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Leonardo DiCaprio</h3>
+	        			<h5>Shutter Island (2010)</h5>
+	      			</div>   
+	    		</div>
+	    		
+	   			<div class="carousel-item">
+	      			<a href="https://www.imdb.com/name/nm0914612/?ref_=nv_sr_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BZDU4OTE5NmUtNGNlYy00ZTE3LTkyZjctMTBiMGQzZjM1ZTMwXkEyXkFqcGdeQXVyMTI3MDk3MzQ@._V1_.jpg" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Emma Watson</h3>
+	        			<h5>Noah(2014)</h5>
+	      			</div> 
+	    		</div>
+	
+				<div class="carousel-item">
+					<a href="https://www.imdb.com/name/nm1701227/?ref_=nv_sr_1">
+	     				<img src="https://i.ytimg.com/vi/fYrhiYcddpU/maxresdefault.jpg" width="1125" height="500">
+	     			</a>
+	      			 <div class="carousel-caption">
+	        		 	<h3>Michelle Chen</h3>
+	        			<h5>You Are the Apple of My Eye(2011)</h5>
+	      			 </div>   
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/name/nm0000129/?ref_=fn_al_nm_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BY2RlZGJjMjAtZWFhMy00ZjdiLWEwN2MtYjdmMjZiYTUxNTBmXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SY1125_CR0,0,1696,1125_AL_.jpg" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Tom Cruise</h3>
+	        			<h5>Mission: Impossible - Ghost Protocol (2011)</h5>
+	      			</div>   
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/name/nm0000204/?ref_=fn_al_nm_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BOTE3MzA3Mzg3M15BMl5BanBnXkFtZTgwMTYwOTc3NDM@._V1_SX1777_CR0,0,1777,743_AL_.jpg" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Natalie Portman</h3>
+	        			<h5>Annihilation (2018)</h5>
+	      			</div>   
+	    		</div>
+	    		
+	    		<div class="carousel-item">
+	    			<a href="https://www.imdb.com/name/nm1620783/?ref_=fn_al_nm_1">
+	      				<img src="https://ia.media-imdb.com/images/M/MV5BMTk0MjA2OTc2Ml5BMl5BanBnXkFtZTcwMDQ0MjM5NA@@._V1_SX1777_CR0,0,1777,757_AL_.jpg" width="1125" height="500">
+	      			</a>
+	      			<div class="carousel-caption">
+	        			<h3>Meghan Markle</h3>
+	        			<h5>Suits (2011)</h5>
+	      			</div>   
+	    		</div>
+	  		</div>
+	  		
+		  <a class="carousel-control-prev" href="#demo1" data-slide="prev">
+		    <span class="carousel-control-prev-icon"></span>
+		  </a>
+		  <a class="carousel-control-next" href="#demo1" data-slide="next">
+		    <span class="carousel-control-next-icon"></span>
+		  </a>
+		</div>
+		
+		</div>
+		</div>
+		</div>
+		
+	
+		<div style="height: 50px;"></div>
+		<hr style="padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;" noshade>
+		
+		<div style="font-family: Times New Roman;" class="footer btn-sm">
+			<ul style="align: middle; padding: 0;">
+				<li><a href="index.html">Home</a>
+				<li></li>
+				<li>|</li>
+				<li><a href="https://www.ics.uci.edu/~dayueb/">About Fabflix</a>
+				<li></li>
+				<li>|</li>
+				<li><a href="login.html">Register an Account</a>
+				<li></li>
+				<li>|</li>
+				<li><a href="cart.html">Checkout</a>
+				<li></li>
+				<li>|</li>
+				<li><a href="#"> Privacy Policy</a></li>
+			</ul>
+			<p align="middle" class="copyright">Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>
+		</div>
+	
+	
+	<!-- Load jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+</body>
+
+</html>
