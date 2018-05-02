@@ -1,9 +1,3 @@
-/**
- * This User class only has the username field in this example.
- * <p>
- * However, in the real project, this User class can contain many more things,
- * for example, the user's shopping cart items.
- */
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -12,11 +6,29 @@ public class User {
     private final String username;
     private final int id;
     private HashMap<String, ArrayList<String>> cart;
+    private HashMap<Integer, String> purchase_record;
 
     public User(String username, int Id) {
         this.username = username;
         this.id = Id;
         this.cart = new HashMap<>();
+        this.purchase_record = new HashMap<>();
+    }
+    
+    public HashMap<Integer, String> getPurchaseRecord() {
+    	return purchase_record;
+    }
+    
+    public void writePurchaseRecord(int saleId, String movieId) {
+    	purchase_record.put(saleId, movieId);
+    }
+    
+    public void clearPurchaseRecord() {
+    	this.purchase_record = new HashMap<>();
+    }
+    
+    public HashMap<String, ArrayList<String>> getCart() {
+    	return cart;
     }
     
     public int getUserId() {
@@ -25,14 +37,6 @@ public class User {
     
     public String getUsername() {
         return this.username;
-    }
-    
-    public void clearCart() {
-    	this.cart = new HashMap<>();
-    }
-    
-    public HashMap<String, ArrayList<String>> getCart() {
-    	return cart;
     }
     
     public String getItemName(String itemId) {
@@ -68,8 +72,11 @@ public class User {
     			i.add(Integer.toString(delta));
     			cart.put(itemId, i);
     		}
-    	}
-    	
+    	}	
+    }
+    
+    public void clearCart() {
+    	this.cart = new HashMap<>();
     }
 
 }

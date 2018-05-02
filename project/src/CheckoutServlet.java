@@ -69,18 +69,36 @@ public class CheckoutServlet extends HttpServlet {
 				
 				for (String movieId : cartMap.keySet())
 				{
-	        		String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
-										"VALUES(" + customerId + ",'" + movieId + "',NOW())";
-	        		
-	        		Statement updateStatement = dbcon.createStatement();
-	        		updateStatement.executeUpdate(updateQuery);
-	        		
-	        		updateStatement.close();
+					int amount = ((User) session.getAttribute("user")).getItemAmount(movieId);
+					for (int counter = 0; counter < amount; ++counter) {
+		        		String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
+											"VALUES(" + customerId + ",'" + movieId + "',NOW())";
+		        		
+		        		// Update sales table
+		        		Statement updateStatement = dbcon.createStatement();
+		        		updateStatement.executeUpdate(updateQuery);
+		        		
+		        		// Get last inserted sale ID
+		        		Statement idQueryStatement = dbcon.createStatement();
+		        		String idQuery = "select LAST_INSERT_ID() as id;";
+		        		ResultSet rs = idQueryStatement.executeQuery(idQuery);
+		        		
+		        		while (rs.next()) {
+		        			int saleId = rs.getInt("id");
+		        			
+		        			// Write the transaction to user purchase record, stored in User.java class
+		        			((User) session.getAttribute("user")).writePurchaseRecord(saleId, movieId);
+		        			
+		        			// For test
+		        			System.out.println("Last inserted saleId: " + saleId);
+		        		}
+		        		
+		        		// Close all open resources
+		        		rs.close();
+		        		updateStatement.close();
+		        		idQueryStatement.close();
+					}
 				}
-
-				
-				// If success, clear shopping cart
-				// ((User) session.getAttribute("user")).clearCart();
 				
 				// For Test
 				System.out.println("find something");

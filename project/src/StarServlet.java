@@ -51,8 +51,8 @@ public class StarServlet extends HttpServlet {
             ResultSet rs = statement.executeQuery(query);
             
 			JsonArray jsonArray = new JsonArray();
+			
 			// Iterate through each row of rs
-            
             while (rs.next()) {
             	String sId = rs.getString("id");
             	String sName = rs.getString("name");
