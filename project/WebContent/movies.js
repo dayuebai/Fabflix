@@ -37,7 +37,7 @@ function handleResult(resultData) {
     let resultCount = 0;
     
     if (resultData[0] === undefined)
-    	movieSearchResultElement.append("<h5>Movie Not Found</h5>");
+    	movieSearchResultElement.append("<h1>Movie not found...</h1>");
     else{
     	resultCount = resultData[0]["totalFound"];
     	movieSearchResultElement.append("<p>" + resultData[0]["totalFound"].toString() + " result(s) found</p>");
@@ -125,8 +125,8 @@ function handleResult(resultData) {
     
 	if (resultCount > 1) {   
 	    var pagString = "<div class='container'>" + 
-							"<div class='row justify-content-center'>" + 
-								"<a style='color: #b5462b; margin: 0; text-decoration: underline;' href='#top'>Back to top</a>" + 
+							"<div style='margin-bottom: 25px;' class='row justify-content-center'>" + 
+								"<a id='toTop' href='#top'>Back to top</a>" + 
 							"</div>" + 
     						"<div class='row justify-content-center'>" + 
     							"<div style='margin: 5px;' class='col-xs-5'>" +

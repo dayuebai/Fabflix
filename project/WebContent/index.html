@@ -27,6 +27,15 @@
 			margin:10px 0px;
 		}
 		
+		a.toTop{
+			color: #ffffff;
+			text-decoration: underline;
+		}
+		
+		a.toTop:hover{
+			color: red;
+		}
+		
 		a.nav-link, a.trailer, a.weekly_stars, a.in_theatre{
 			color: #ffffff; 
 			text-decoration: none;
@@ -76,12 +85,12 @@
 	</style>
 </head>
 
-<body style="background-color: #1c1b1a; color: #ffffff;">
+<body id="top" style="background-color: #1c1b1a; color: #ffffff;">
 	
 	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
 		<ul class="navbar-nav mr-auto">
 			<li style="padding: 3px 0px 0px 10px;" class="nav-item">
-				<a style="font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
+				<a style="text-decoration: none; font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
 			</li>
 			<li style="padding: 0px 15px;" class="nav-item">
 				<a class="nav-link btn-lg"  href="index.html">Home</a>
@@ -174,7 +183,7 @@
 					</div>
 				</div>
 	  			
-	  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find Movies, Stars...">
+	  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find movies by titles...">
 				<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
 					<i class="fa fa-search fa-lg" aria-hidden="true"></i>
 				</button>
@@ -204,13 +213,12 @@
         			<div style="margin-left: 25%;">
         				<button type="submit" class="btn btn-primary text-sm">Submit</button>
 					</div>
-				</form>
-				
+				</form>	
 			</div>
 
 		</div>
 		<div>
-			<a style="margin-right: 8px;" class="btn btn-danger" style="color:white" href="cart.html" > 
+			<a style="margin-right: 8px; color: #ffffff; text-decoration: none;" class="btn btn-danger" href="cart.html" > 
 				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
 			</a>
 		</div>
@@ -341,7 +349,7 @@
 	    		
 	   			<div class="carousel-item">
 	      			<a href="https://www.imdb.com/name/nm0914612/?ref_=nv_sr_1">
-	      				<img src="https://ia.media-imdb.com/images/M/MV5BZDU4OTE5NmUtNGNlYy00ZTE3LTkyZjctMTBiMGQzZjM1ZTMwXkEyXkFqcGdeQXVyMTI3MDk3MzQ@._V1_.jpg" width="1125" height="500">
+	      				<img src="https://i.ytimg.com/vi/mSnMTMlJzME/maxresdefault.jpg" width="1125" height="500">
 	      			</a>
 	      			<div class="carousel-caption">
 	        			<h3>Emma Watson</h3>
@@ -351,7 +359,7 @@
 	
 				<div class="carousel-item">
 					<a href="https://www.imdb.com/name/nm1701227/?ref_=nv_sr_1">
-	     				<img src="https://i.ytimg.com/vi/fYrhiYcddpU/maxresdefault.jpg" width="1125" height="500">
+	     				<img src="https://i.ytimg.com/vi/3Vcvyhd0kas/maxresdefault.jpg" width="1125" height="500">
 	     			</a>
 	      			 <div class="carousel-caption">
 	        		 	<h3>Michelle Chen</h3>
@@ -381,7 +389,7 @@
 	    		
 	    		<div class="carousel-item">
 	    			<a href="https://www.imdb.com/name/nm1620783/?ref_=fn_al_nm_1">
-	      				<img src="https://ia.media-imdb.com/images/M/MV5BMTk0MjA2OTc2Ml5BMl5BanBnXkFtZTcwMDQ0MjM5NA@@._V1_SX1777_CR0,0,1777,757_AL_.jpg" width="1125" height="500">
+	      				<img src="https://media.vanityfair.com/photos/59a968254a3663211bf43089/master/w_1440,c_limit/meghan-markle-1017-ss02.jpg" width="1125" height="500">
 	      			</a>
 	      			<div class="carousel-caption">
 	        			<h3>Meghan Markle</h3>
@@ -403,7 +411,8 @@
 		</div>
 		
 	
-		<div style="height: 50px;"></div>
+		<div style="margin-top: 25px; height: 50px; text-align: center;"><a class="toTop" href="#top">Back to top</a></div>
+		
 		<hr style="padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;" noshade>
 		
 		<div style="font-family: Times New Roman;" class="footer btn-sm">
