@@ -72,13 +72,16 @@ function handleResult(resultData) {
 	if (resultData.length > 0){
 		let i = "<div class='container'>" +
 					"<div class='row'>" +  
-						"<div class='col-lg-11'>" + 
-							"<div class='text-center'>" + 
-								"<a style='font-size: 135%; color: red; text-decoration: underline;' href='#top'>Back to top</a>" + 
+						"<div class='col-lg-2'>" +  
+							"<a style='text-decoration: none; margin-top: 0; margin-bottom: 40px; margin-left: 15%;' class='btn btn-danger float-right' href='movies.html' role='button'>Add more to cart</a>" + 
+						"</div>" + 
+						"<div class='col-lg-8'>" + 
+							"<div style='text-align:center;'>" + 
+								"<a id='toTop' href='#top'>Back to top</a>" + 
 							"</div>" + 
 						"</div>" + 
-						"<div class='col-lg-1'>" +  
-							"<a style='margin-top: 0; margin-bottom: 40px; margin-right: 15%;' class='btn btn-danger float-right' href='checkout.html' role='button'>Proceed to checkout</a>" + 
+						"<div class='col-lg-2'>" +  
+							"<a style='text-decoration: none; margin-top: 0; margin-bottom: 40px; margin-right: 6%;' class='btn btn-danger float-right' href='checkout.html' role='button'>Proceed to checkout</a>" + 
 						"</div>" + 
 					"</div>" + 
 				"</div>";
@@ -100,7 +103,28 @@ function handleResult(resultData) {
 						  "</div>";
 		alertInfoElement.append(alertString);
 	}
-		
+	
+	// For copyright footer
+	let copyrightElement = jQuery(".footer");
+	
+    let footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
+					"<ul style='align: middle; padding: 0;'>" + 
+						"<li><a href='index.html'>Home</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='https://www.ics.uci.edu/~dayueb/'>About Fabflix</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='login.html'>Register an Account</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='cart.html'>Checkout</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='#'>Privacy Policy</a></li>" + 
+					"</ul>" + 
+					"<p align='middle' class='copyright'>Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>";
+    copyrightElement.append(footerString);
 }
 
 

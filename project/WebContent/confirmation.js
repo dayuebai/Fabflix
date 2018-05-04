@@ -1,6 +1,7 @@
 function handleResult(resultData) {
     let confirmationInfoElement = jQuery("#confirmation_info");
-    let rowHTML = "<h2 style='text-align: center; margin-bottom: 30px;'><i>Congratulations! Your purchase has been processed</i></h2>";
+    let rowHTML = "<div style='text-align: center;'><h2><i>Congratulations! Your purchase has been processed</i></h2>";
+    rowHTML += "<a href='movies.html'><h2><i>Back to see more movies</i></h2></a></div>"
     console.log(resultData.length);
     for (let i = 0; i < resultData.length; ++i) {
     	rowHTML += "<div class='container'>";
@@ -17,6 +18,28 @@ function handleResult(resultData) {
     }
     
     confirmationInfoElement.append(rowHTML);
+    
+	// For copyright footer
+	let copyrightElement = jQuery(".footer");
+	
+    let footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
+					"<ul style='align: middle; padding: 0;'>" + 
+						"<li><a href='index.html'>Home</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='https://www.ics.uci.edu/~dayueb/'>About Fabflix</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='login.html'>Register an Account</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='cart.html'>Checkout</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='#'>Privacy Policy</a></li>" + 
+					"</ul>" + 
+					"<p align='middle' class='copyright'>Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>";
+    copyrightElement.append(footerString);
 }
 
 jQuery.ajax( {
