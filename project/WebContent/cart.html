@@ -18,6 +18,7 @@
 		body{
 			background-color: #1c1b1a;
 			color: #ffffff;
+			height: 100%;
 		}
 		
 		#toTop{
@@ -50,13 +51,13 @@
 		}
 		
 		.footer{
-			position: absolute;
+			position:fixed;
 			bottom: 0;
 			width: 100%;
 			height: 40px;
 			padding: 0;
 			margin: 0;
-			background-color: #000000;
+			background-color: #1c1b1a;
 		}
 		
 		.footer ul{
@@ -116,7 +117,7 @@
                            </div>	
                            <div style="color: #000000;" class="modal-body">
                            	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
-                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adult</a>
+                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adult">Adult</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
@@ -201,7 +202,7 @@
           				<input type="text" name="title" class="form-control" placeholder="By title... ">
         			</div>
         			<div style="padding:10px" class="form-group">
-          				<input type="text" name="year" class="form-control" placeholder="By year...">
+          				<input type="number" name="year" class="form-control" placeholder="By year...">
         			</div>
         			<div style="padding:10px" class="form-group">
           				
@@ -229,9 +230,9 @@
 	
 	<div id="cart_info"></div>
 	
-	<div id="checkout_button"></div>
+	<div style="margin-bottom: 50px;" id="checkout_button"></div>
 	
-	<div style='font-family: Times New Roman;' class='footer btn-sm'></div>
+	<div style="font-family: Times New Roman;" class="footer btn-sm"></div>
 	
 	<!-- Load jQuery and Bootstrap JS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

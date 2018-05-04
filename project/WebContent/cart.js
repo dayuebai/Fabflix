@@ -103,7 +103,28 @@ function handleResult(resultData) {
 						  "</div>";
 		alertInfoElement.append(alertString);
 	}
-		
+	
+	// For copyright footer
+	let copyrightElement = jQuery(".footer");
+	
+    let footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
+					"<ul style='align: middle; padding: 0;'>" + 
+						"<li><a href='index.html'>Home</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='https://www.ics.uci.edu/~dayueb/'>About Fabflix</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='login.html'>Register an Account</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='cart.html'>Checkout</a>" + 
+						"<li></li>" + 
+						" <li>|</li> " + 
+						"<li><a href='#'>Privacy Policy</a></li>" + 
+					"</ul>" + 
+					"<p align='middle' class='copyright'>Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>";
+    copyrightElement.append(footerString);
 }
 
 

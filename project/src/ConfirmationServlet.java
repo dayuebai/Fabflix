@@ -63,14 +63,14 @@ public class ConfirmationServlet extends HttpServlet {
 				saleIdList = saleIdList.trim(); // To remove the last whitespace
 				jsonObject.addProperty("saleIdList", saleIdList);
 				jsonArray.add(jsonObject);
-				
-				// Clear user shopping cart and current purchase record
-				// TODO: later, we can implement a new functionality to 
-				// store all purchase record so that user can search their
-				// purchase record any time.
-//				((User) session.getAttribute("user")).clearCart();
-//				((User) session.getAttribute("user")).clearPurchaseRecord();
+			
 			}
+			 //Clear user shopping cart and current purchase record
+			// TODO: later, we can implement a new functionality to 
+			// store all purchase record so that user can search their
+			// purchase record any time.
+			((User) session.getAttribute("user")).clearCart();
+			((User) session.getAttribute("user")).clearPurchaseRecord();
 			
             // write JSON string to output
 			out.write(jsonArray.toString());

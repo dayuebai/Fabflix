@@ -26,7 +26,7 @@ let pageNumber = getParameterByName('pageNumber') ? getParameterByName('pageNumb
 let movieNumber = getParameterByName('movieNumber') ? getParameterByName('movieNumber') : 10;
 let mId = getParameterByName('id') ? getParameterByName('id') : "";
 let queryUrl = "?id=" + mId + "&sort=" + sortKind + "&order=" + sortOrder + "&title=" + title + "&genre=" + genre + "&year=" + year + "&director=" + director + "&star=" + star + "&pageNumber=";
-let urlHelper = "&title=" + title + "&genre=" + genre + "&year=" + year + "&director=" + director + "&star=" + star;
+let urlHelper = "&title=" + title + "&genre=" + genre + "&year=" + year + "&director=" + director + "&star=" + star + "&movieNumber=" + movieNumber;
 
 function handleResult(resultData) {
 	
@@ -34,10 +34,12 @@ function handleResult(resultData) {
     
     // #id: search_info
     let movieSearchResultElement = jQuery("#search_info");
+    let promptElement = jQuery("#prompt");
+    
     let resultCount = 0;
     
     if (resultData[0] === undefined)
-    	movieSearchResultElement.append("<h1>Movie not found...</h1>");
+    	promptElement.append("<div id='prompt_message'><h1>Sorry, movie not found...</h1></div>");
     else{
     	resultCount = resultData[0]["totalFound"];
     	movieSearchResultElement.append("<p>" + resultData[0]["totalFound"].toString() + " result(s) found</p>");
@@ -181,7 +183,7 @@ function handleResult(resultData) {
 							"<li><a href='login.html'>Register an Account</a>" + 
 							"<li></li>" + 
 							" <li>|</li> " + 
-							"<li><a href='checkout.html'>Checkout</a>" + 
+							"<li><a href='cart.html'>Checkout</a>" + 
 							"<li></li>" + 
 							" <li>|</li> " + 
 							"<li><a href='#'> Privacy Policy</a></li>" + 

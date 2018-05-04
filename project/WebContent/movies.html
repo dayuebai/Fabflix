@@ -25,6 +25,11 @@
 			margin: 5px;
 		}
 		
+		#prompt_message{
+			text-align: center;
+			margin-top: 230px;
+		}
+		
 		#toTop{
 			color: #ffffff;
 			text-decoration: underline;
@@ -137,7 +142,7 @@
                            </div>	
                            <div style="color: #000000;" class="modal-body">
                            	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
-                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adult</a>
+                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adult">Adult</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
 							<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
@@ -222,7 +227,7 @@
           				<input type="text" name="title" class="form-control" placeholder="By title... ">
         			</div>
         			<div style="padding:10px" class="form-group">
-          				<input type="text" name="year" class="form-control" placeholder="By year...">
+          				<input type="number" name="year" class="form-control" placeholder="By year...">
         			</div>
         			<div style="padding:10px" class="form-group">
           				
@@ -248,6 +253,7 @@
 	</nav>
 	
 	<div style="margin-left: 44%; margin-top: 15px;" id="search_info"></div>
+	<div id="prompt"></div>
 	
 	<div id="sort_bar"></div>
 	

@@ -55,7 +55,7 @@ function handleResult(resultData) {
 	let copyrightElement = jQuery(".footer");
 			
 	
-    footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
+    let footerString =  "<hr style='padding: 0; margin: 0; border-color: #ffffff; border-width: 2px;' noshade>" + 
 					"<ul style='align: middle; padding: 0;'>" + 
 						"<li><a href='index.html'>Home</a>" + 
 						"<li></li>" + 
@@ -66,10 +66,10 @@ function handleResult(resultData) {
 						"<li><a href='login.html'>Register an Account</a>" + 
 						"<li></li>" + 
 						" <li>|</li> " + 
-						"<li><a href='checkout.html'>Checkout</a>" + 
+						"<li><a href='cart.html'>Checkout</a>" + 
 						"<li></li>" + 
 						" <li>|</li> " + 
-						"<li><a href='#'> Privacy Policy</a></li>" + 
+						"<li><a href='#'>Privacy Policy</a></li>" + 
 					"</ul>" + 
 					"<p align='middle' class='copyright'>Copyright &copy; 2018 by Michael Wang & Dayue Bai. All rights reserved.</p>";
     copyrightElement.append(footerString);
