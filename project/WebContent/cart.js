@@ -42,7 +42,7 @@ function handleResult(resultData) {
 								"</div>" + 
 								"<div class='col-lg-5'>" + 
 									"<form style='border-style: none;' class='form-inline form-control bg-dark' action='cart.html'" + ">" + 
-										"<input style='margin-right: 20px; border-style: solid;' class='bg-dark rounded border-primary text-light' type='number' placeholder=" + mQuantity + " name='amount'" + " value=" + mQuantity + " required>" + 
+										"<input style='margin-right: 20px; border-style: solid;' class='bg-dark rounded border-primary text-light' type='number' min='0' max='1000' placeholder=" + mQuantity + " name='amount'" + " value=" + mQuantity + " required>" + 
 										"<input type='hidden' name='cId' value='" + mId + "'>" + 
 										"<input type='hidden' name='cName' value='"+ mName + "'>" + 
 										"<input type='hidden' name='cAmount' value=''>" + 
