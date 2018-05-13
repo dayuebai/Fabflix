@@ -28,7 +28,9 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         PrintWriter out = response.getWriter();
-
+        
+        System.out.println("request URI: " + request.getContextPath());
+        
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
 
@@ -56,21 +58,28 @@ public class LoginServlet extends HttpServlet {
 
             // Create a new connection to database
             Connection dbCon = dataSource.getConnection();
-
-            // Generate a SQL query
-            String username = request.getParameter("email");
-            String password = request.getParameter("password");
-            // we use the StrongPasswordEncryptor from jasypt library (Java Simplified Encryption) 
-            //  it internally use SHA-256 algorithm and 10,000 iterations to calculate the encrypted password
-//            PasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-//            String encryptedPassword = passwordEncryptor.encryptPassword(password);
-//            System.out.println("password is" + encryptedPassword);
+ 
+            String username = "";
+            String password = "";
+            String query = "";
+            PreparedStatement preparedStatement;
             
-            String query = "select * from customers where email=?;";
-
-            // Declare a new statement
-            PreparedStatement preparedStatement = dbCon.prepareStatement(query);
-            preparedStatement.setString(1, username);
+            // Generate a SQL query
+            if (request.getParameter("employee_email")==null && request.getParameter("employee_password")==null) {
+	            username = request.getParameter("email"); 
+            	password = request.getParameter("password");
+            	query = "select * from customers where email=?;";
+            	preparedStatement = dbCon.prepareStatement(query);
+            	preparedStatement.setString(1, username);
+            }
+            else {
+            	username = request.getParameter("employee_email");
+            	password = request.getParameter("employee_password");
+            	query = "select * from employees where email=?;";
+            	preparedStatement = dbCon.prepareStatement(query);
+            	preparedStatement.setString(1, username);
+            }        
+            
             boolean success = false;
             // Perform the query
             ResultSet rs = preparedStatement.executeQuery();
@@ -80,9 +89,11 @@ public class LoginServlet extends HttpServlet {
             	success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
             	
             	if (success) {
-                	int customerId = rs.getInt("id");
-                	request.getSession().setAttribute("user", new User(username, customerId));
-          
+            		if (request.getParameter("employee_email")==null && request.getParameter("employee_password")==null) {
+	                	int customerId = rs.getInt("id");
+	                	request.getSession().setAttribute("user", new User(username, customerId));
+            		}
+            		
                 	responseJsonObject.addProperty("status", "success");
                 	responseJsonObject.addProperty("message", "success");	
             	}
