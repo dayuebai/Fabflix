@@ -2,20 +2,27 @@
  * Handle the data returned by LoginServlet
  */
 function handleLoginResult(resultDataString) {
-	resultDataJson = JSON.parse(resultDataString);
-	
-	console.log("handle login response");
-	console.log(resultDataJson);
-	console.log(resultDataJson["status"]);
-	
-	if (resultDataJson["status"] === "success") {
-		window.location.replace("index.html");
+	try {
+		resultDataJson = JSON.parse(resultDataString);
+		
+		console.log("handle login response");
+		console.log(resultDataJson);
+		console.log(resultDataJson["status"]);
+		
+		if (resultDataJson["status"] === "success") {
+			window.location.replace("index.html");
+		}
+		else {
+			console.log("show error message");
+			console.log(resultDataJson["message"]);
+			jQuery("#login_error_message").text(resultDataJson["message"]);
+			grecaptcha.reset();
+		}
+	} catch (err) {
+		console.log("Recaptcha not received.");
+		jQuery("#login_error_message").text("Please click checkbox");
 	}
-	else {
-		console.log("show error message");
-		console.log(resultDataJson["message"]);
-		jQuery("#login_error_message").text(resultDataJson["message"]);
-	}
+
 }
 
 

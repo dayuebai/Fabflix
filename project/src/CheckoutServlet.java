@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,29 +55,39 @@ public class CheckoutServlet extends HttpServlet {
 			
 			// Construct query
 			String query = "select * from creditcards where " + 
-							"id='" + cNumber + "' AND " + 
-							"firstName='" + fName + "' AND " + 
-							"lastName='" + lName + "' AND " + 
-							"expiration='" + expiration + "';";
+							"id=? AND " + 
+							"firstName=? AND " + 
+							"lastName=? AND " + 
+							"expiration=?;";
 
 			// execute query
-    		Statement statement = dbcon.createStatement();
-    		ResultSet resultSet = statement.executeQuery(query);
+    		PreparedStatement preparedStatement = dbcon.prepareStatement(query);
+    		preparedStatement.setString(1, cNumber);
+    		preparedStatement.setString(2, fName);
+    		preparedStatement.setString(3, lName);
+    		preparedStatement.setString(4, expiration);
+    		
+    		ResultSet resultSet = preparedStatement.executeQuery();
     		
 			if(resultSet.next()) {
 				// Insert sale record to sales table
 				String customerId = Integer.toString( ((User) session.getAttribute("user")).getUserId() );
 				
+				String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
+						"VALUES(?,?,NOW())";
+				
+				PreparedStatement preparedUpdateStatement = dbcon.prepareStatement(updateQuery);
+				preparedUpdateStatement.setInt(1, Integer.parseInt(customerId));
+				
 				for (String movieId : cartMap.keySet())
 				{
+					preparedUpdateStatement.setString(2, movieId);
 					int amount = ((User) session.getAttribute("user")).getItemAmount(movieId);
+					
 					for (int counter = 0; counter < amount; ++counter) {
-		        		String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
-											"VALUES(" + customerId + ",'" + movieId + "',NOW())";
 		        		
 		        		// Update sales table
-		        		Statement updateStatement = dbcon.createStatement();
-		        		updateStatement.executeUpdate(updateQuery);
+		        		preparedUpdateStatement.executeUpdate();
 		        		
 		        		// Get last inserted sale ID
 		        		Statement idQueryStatement = dbcon.createStatement();
@@ -95,10 +106,10 @@ public class CheckoutServlet extends HttpServlet {
 		        		
 		        		// Close all open resources
 		        		rs.close();
-		        		updateStatement.close();
 		        		idQueryStatement.close();
 					}
 				}
+				preparedUpdateStatement.close();
 				
 				// For Test
 				System.out.println("find something");
@@ -122,7 +133,7 @@ public class CheckoutServlet extends HttpServlet {
 			response.setStatus(200);
 			
 			resultSet.close();
-			statement.close();
+			preparedStatement.close();
 			dbcon.close();
 		}
 		catch (Exception e) {

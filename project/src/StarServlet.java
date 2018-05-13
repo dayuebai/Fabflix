@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -37,18 +38,17 @@ public class StarServlet extends HttpServlet {
 		try {
 			// Get a connection from dataSource
 			Connection dbcon = dataSource.getConnection();
-			
-            // Declare a new statement
-            Statement statement = dbcon.createStatement();
             
 			// Construct query
-			String query = "select id, name, birthYear from stars where id='" + starId + "';";
+			String query = "select id, name, birthYear from stars where id=?;";
+			PreparedStatement preparedStatement = dbcon.prepareStatement(query);
+			preparedStatement.setString(1, starId);
 			
 			// For test
 			System.out.println(query);
 			
 			// Perform the query
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = preparedStatement.executeQuery();
             
 			JsonArray jsonArray = new JsonArray();
 			
@@ -69,9 +69,10 @@ public class StarServlet extends HttpServlet {
         		String query_movie = "select id, title " + 
         							"from stars_in_movies inner join movies " + 
         							"on stars_in_movies.movieId=movies.id " + 
-        							"where stars_in_movies.starId='" + sId + "';";
-        		Statement statementMovie = dbcon.createStatement();
-        		ResultSet rsMovies = statementMovie.executeQuery(query_movie);
+        							"where stars_in_movies.starId=?;";
+        		PreparedStatement preparedStatementMovie = dbcon.prepareStatement(query_movie);
+        		preparedStatementMovie.setString(1, sId);
+        		ResultSet rsMovies = preparedStatementMovie.executeQuery();
         		
         		// For test
         		System.out.println(query_movie);
@@ -95,7 +96,7 @@ public class StarServlet extends HttpServlet {
         		jsonArray.add(jsonObject);
         		
         		rsMovies.close();
-        		statementMovie.close();
+        		preparedStatementMovie.close();
             }
 
             // write JSON string to output
@@ -105,7 +106,7 @@ public class StarServlet extends HttpServlet {
 
             // Close all structures
             rs.close();
-            statement.close();
+            preparedStatement.close();
             dbcon.close();
 			
 		}

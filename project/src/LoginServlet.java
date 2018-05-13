@@ -5,13 +5,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-
+import java.sql.PreparedStatement;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 //
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
@@ -24,7 +26,29 @@ public class LoginServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        PrintWriter out = response.getWriter();
+
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+
+        // Verify reCAPTCHA
+        try {
+            RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+        } catch (Exception e) {
+            out.println("<html>");
+            out.println("<head><title>Error</title></head>");
+            out.println("<body>");
+            out.println("<p>recaptcha verification error</p>");
+            out.println("<p>" + e.getMessage() + "</p>");
+            out.println("</body>");
+            out.println("</html>");
+            
+            out.close();
+            return;
+        }
+    	
+    	
         /* This example only allows username/password to be test/test
         /  in the real project, you should talk to the database to verify username/password
         */
@@ -33,43 +57,47 @@ public class LoginServlet extends HttpServlet {
             // Create a new connection to database
             Connection dbCon = dataSource.getConnection();
 
-            // Declare a new statement
-            Statement statement = dbCon.createStatement();
-
             // Generate a SQL query
             String username = request.getParameter("email");
             String password = request.getParameter("password");
-            String query = "select id from customers where email='" + username + "' and password='" + password + "';";
+            // we use the StrongPasswordEncryptor from jasypt library (Java Simplified Encryption) 
+            //  it internally use SHA-256 algorithm and 10,000 iterations to calculate the encrypted password
+//            PasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+//            String encryptedPassword = passwordEncryptor.encryptPassword(password);
+//            System.out.println("password is" + encryptedPassword);
+            
+            String query = "select * from customers where email=?;";
 
+            // Declare a new statement
+            PreparedStatement preparedStatement = dbCon.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            boolean success = false;
             // Perform the query
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            JsonObject responseJsonObject = new JsonObject();
             if (rs.next()) {
-            	int customerId = rs.getInt("id");
-            	request.getSession().setAttribute("user", new User(username, customerId));
+            	String encryptedPassword = rs.getString("password");
+            	success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
             	
-            	JsonObject responseJsonObject = new JsonObject();
-            	responseJsonObject.addProperty("status", "success");
-            	responseJsonObject.addProperty("message", "success");
-            	response.getWriter().write(responseJsonObject.toString());
+            	if (success) {
+                	int customerId = rs.getInt("id");
+                	request.getSession().setAttribute("user", new User(username, customerId));
+          
+                	responseJsonObject.addProperty("status", "success");
+                	responseJsonObject.addProperty("message", "success");	
+            	}
+            	else {
+            		responseJsonObject.addProperty("status", "fail");
+            		responseJsonObject.addProperty("message", "Incorrect password");
+            	}
             }
             else {
-				JsonObject responseJsonObject = new JsonObject();
-				responseJsonObject.addProperty("status", "fail");
-				
-				Statement statementUsername = dbCon.createStatement();
-				ResultSet resultSetUsername = statementUsername.executeQuery("select * from customers where email='" + username +"';");
-				if (resultSetUsername.next() == false)
-					responseJsonObject.addProperty("message", "User: " + username + " doesn't exist");
-				else
-					responseJsonObject.addProperty("message", "Incorrect password");
-				response.getWriter().write(responseJsonObject.toString());
-				
-				resultSetUsername.close();
-				statementUsername.close();
+				responseJsonObject.addProperty("message", "User: " + username + " doesn't exist");
             }
+            response.getWriter().write(responseJsonObject.toString());
             // Close all structures
             rs.close();
-            statement.close();
+            preparedStatement.close();
             dbCon.close();
 
         } catch (Exception ex) {
