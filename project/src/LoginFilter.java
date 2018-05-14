@@ -27,13 +27,33 @@ public class LoginFilter implements Filter {
         }
 
         // Redirect to login page if the "user" attribute doesn't exist in session
-        if (httpRequest.getSession().getAttribute("user") == null) {
-            httpResponse.sendRedirect("login.html");
-        } else {
-            chain.doFilter(request, response);
+        if (this.isDashboardUrl(httpRequest.getRequestURI())) {
+        	if (httpRequest.getSession().getAttribute("employee") == null) {
+        		httpResponse.sendRedirect("_dashboard.html");
+        	}
+        	else {
+        		chain.doFilter(request, response);
+        	}
+        }
+        else {
+	        if (httpRequest.getSession().getAttribute("user") == null) {
+	            httpResponse.sendRedirect("login.html");
+	        } else {
+	            chain.doFilter(request, response);
+	        }
         }
     }
 
+    // Setup your own rules here to allow accessing some resources without logging in
+    // Always allow your own login related requests(html, js, servlet, etc..)
+    // You might also want to allow some CSS files, etc..
+    private boolean isDashboardUrl(String requestURI) {
+        requestURI = requestURI.toLowerCase();
+
+        return requestURI.endsWith("dashboard.html") || requestURI.endsWith("dashboard.js")
+                || requestURI.endsWith("api/dashboard");
+    }
+    
     // Setup your own rules here to allow accessing some resources without logging in
     // Always allow your own login related requests(html, js, servlet, etc..)
     // You might also want to allow some CSS files, etc..
@@ -42,7 +62,7 @@ public class LoginFilter implements Filter {
 
         return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
                 || requestURI.endsWith("api/login") || requestURI.endsWith("_dashboard.html") 
-                || requestURI.endsWith("_dashboard.js") || requestURI.endsWith("api/dashboard");
+                || requestURI.endsWith("_dashboard.js");
     }
 
     /**

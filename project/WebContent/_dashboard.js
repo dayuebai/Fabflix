@@ -10,9 +10,9 @@ function handleLoginResult(resultDataString) {
 		console.log(resultDataJson["status"]);
 		
 		if (resultDataJson["status"] === "success") {
-			$( ".container" ).empty();
-			$( "#login_error_message" ).empty();
-//			window.location.replace("_dashboard.html");
+//			$( ".container" ).empty();
+//			$( "#login_error_message" ).empty();
+			window.location.replace("dashboard.html"); 
 		}
 		else {
 			console.log("show error message");
