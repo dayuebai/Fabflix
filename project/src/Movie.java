@@ -48,24 +48,22 @@ public class Movie {
 	}
 
 	public void setDirector(String director) {
-		if (director.equals(""))
-			this.director = director;
+		//if (!director.equals(""))
+		this.director = director;
 	}	
 	
 	
 	public String toString() {
-		return "";
-//		StringBuffer sb = new StringBuffer();
-//		sb.append("Employee Details - ");
-//		sb.append("Name:" + getName());
-//		sb.append(", ");
-//		sb.append("Type:" + getType());
-//		sb.append(", ");
-//		sb.append("Id:" + getId());
-//		sb.append(", ");
-//		sb.append("Age:" + getAge());
-//		sb.append(".");
-//		
-//		return sb.toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append("Movie Details - ");
+		sb.append("MovieId:" + getId());
+		sb.append(", ");
+		sb.append("Title:" + getTitle());
+		sb.append(", ");
+		sb.append("Year:" + getYear());
+		sb.append(", ");
+		sb.append("Director:" + getDirector());
+		
+		return sb.toString();
 	}
 }
