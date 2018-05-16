@@ -1,0 +1,16 @@
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 196x
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 199x
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
+Error (wrong type) in Schema: movies->year: 19yy
