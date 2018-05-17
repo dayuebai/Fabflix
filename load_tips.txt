@@ -1,0 +1,13 @@
+"""
+
+LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/movie-data.txt' INTO TABLE movies fields terminated BY "&";
+
+LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/genre-data.txt' INTO TABLE genres fields terminated BY "&"; 
+
+LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/genres-in-movies-data.txt' INTO TABLE genres_in_movies fields terminated BY "&";
+
+LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/star-data.txt' INTO TABLE stars fields terminated BY "&" lines terminated BY "\n" (id,name,@birthYear) SET birthYear = nullif(@birthYear,'');
+
+LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/stars-in-movies-data.txt' INTO TABLE stars_in_movies fields terminated BY "&";
+
+"""

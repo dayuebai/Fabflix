@@ -163,21 +163,21 @@ class SAXParseActor extends DefaultHandler {
 				else
 					nameMap.put(name, id);
 	        	
-	        	if (star.getBirth() != -1 && flag) {
+	        	if (star.getBirth() > 0 && flag) {
 	        		starWriter.write(id + "&" + star.getName() + "&" + star.getBirth() + "\n");
 	        		naiveStarWriter.write("INSERT INTO stars(id,name,birthYear) VALUES(\"" + id + "\",\"" + star.getName() + "\"," + star.getBirth() + ");\n");
 	        	}
 	        	else if (flag) {
 	        		if (star.getName().equals("George \"Buck\" Flower")) {
-		        		starWriter.write(id + "&" + "George Buck Flower" + "&NULL" + "\n");
+		        		starWriter.write(id + "&" + "George Buck Flower" + "&" + "\n");
 		        		naiveStarWriter.write("INSERT INTO stars(id,name,birthYear) VALUES(\"" + id + "\",\"" + "George Buck Flower" + "\",NULL);\n");
 	        		}
 	        		else if (star.getName().equals("Billy \"Green\" Bush")) {
-		        		starWriter.write(id + "&" + "Billy Green Bush" + "&NULL" + "\n");
+		        		starWriter.write(id + "&" + "Billy Green Bush" + "&" + "\n");
 		        		naiveStarWriter.write("INSERT INTO stars(id,name,birthYear) VALUES(\"" + id + "\",\"" + "Billy Green Bush" + "\",NULL);\n");
 	        		}
 	        		else {
-		        		starWriter.write(id + "&" + star.getName() + "&NULL" + "\n");
+		        		starWriter.write(id + "&" + star.getName() + "&" + "\n");
 		        		naiveStarWriter.write("INSERT INTO stars(id,name,birthYear) VALUES(\"" + id + "\",\"" + star.getName() + "\",NULL);\n");
 	        		}
 	        	}
