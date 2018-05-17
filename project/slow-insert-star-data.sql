@@ -855,7 +855,7 @@ INSERT INTO stars(id,name,birthYear) VALUES("nm9423934","Freedy Cannon",NULL);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423935","J.D. Cannon",1922);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423936","Kathy Cannon",NULL);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423937","Judy Canova",1916);
-INSERT INTO stars(id,name,birthYear) VALUES("nm9423938","Cantilene",0);
+INSERT INTO stars(id,name,birthYear) VALUES("nm9423938","Cantilene",NULL);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423939","Cantinflas",1911);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423940","Eddie Cantor",1892);
 INSERT INTO stars(id,name,birthYear) VALUES("nm9423941","Truman Capote",1925);
