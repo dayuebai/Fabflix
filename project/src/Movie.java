@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class Movie {
 
@@ -6,6 +6,7 @@ public class Movie {
 	private String title = "";
 	private int year = -1;
 	private String director = "";
+	private ArrayList<String> genres = new ArrayList<String>();
 	
 	public Movie(){
 		
@@ -18,6 +19,11 @@ public class Movie {
 		this.director = director;
 		
 	}
+	
+	public boolean satisfy_requirement() {
+		return !( this.id.equals("") || this.title.equals("") || this.year == -1);	
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -52,6 +58,17 @@ public class Movie {
 		this.director = director;
 	}	
 	
+	public ArrayList<String> getGenres() {
+		return genres;
+	}
+
+	public void addGenre(String genre) throws Exception {
+		if (!genres.contains(genre))
+			this.genres.add(genre);
+		else
+			throw new Exception();
+	}	
+	
 	
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -63,7 +80,8 @@ public class Movie {
 		sb.append("Year:" + getYear());
 		sb.append(", ");
 		sb.append("Director:" + getDirector());
-		
+		sb.append(", ");
+		sb.append("Genres: " + genres.toString());
 		return sb.toString();
 	}
 }
