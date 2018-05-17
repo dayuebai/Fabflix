@@ -10,12 +10,15 @@ function handleLoginResult(resultDataString) {
 		console.log(resultDataJson["status"]);
 		
 		if (resultDataJson["status"] === "success") {
-			window.location.replace("index.html");
+//			$( ".container" ).empty();
+//			$( "#login_error_message" ).empty();
+			window.location.replace("dashboard.html"); 
 		}
 		else {
 			console.log("show error message");
 			console.log(resultDataJson["message"]);
 			jQuery("#login_error_message").text(resultDataJson["message"]);
+			document.getElementById("login_form").reset();
 			grecaptcha.reset();
 		}
 	} catch (err) {

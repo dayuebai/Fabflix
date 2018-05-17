@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 @WebServlet(name = "DbServlet", urlPatterns = "/api/db")
 public class DbServlet extends HttpServlet {
@@ -56,43 +55,57 @@ public class DbServlet extends HttpServlet {
 		try {
 			// Get a connection from dataSource
 			Connection dbcon = dataSource.getConnection();
-
+			PreparedStatement preparedStatementCount;
 			String queryCount = "";
 			
 			if (!genreQuery.equals("")) {
 				queryCount = "select count(*) as total from " + 
 						"movies, genres, genres_in_movies where movies.id=genres_in_movies.movieId "
-						+ "and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "';";
+						+ "and genres_in_movies.genreId=genres.id and genres.name=?;";
+				preparedStatementCount = dbcon.prepareStatement(queryCount);
+				preparedStatementCount.setString(1, genreQuery);
 			}
 			else if (!starQuery.equals("")) {
-				queryCount = String.format("select count(*) as total " +
+				queryCount = "select count(*) as total " +
                         "from stars " +
                         "inner join stars_in_movies " +
                         "on stars.id=stars_in_movies.starId " +
                         "inner join movies " +
                         "on stars_in_movies.movieId=movies.id " +
-                        "where lower(name) like lower(%s) AND " +
-                        "lower(title) like lower(%s) AND " +
-                        "lower(director) like lower(%s)" +
-                        (yearQuery.equals("") ? ";" : (" AND year=" + yearQuery + ";")), 
-                        ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'")); // string format args
-				System.out.println(queryCount);
+                        "where lower(name) like ? AND " +
+                        "lower(title) like ? AND " +
+                        "lower(director) like ?" +
+                        (yearQuery.equals("") ? ";" : (" AND year=?;")); // string format args
+				
+//                ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"))
+				preparedStatementCount = dbcon.prepareStatement(queryCount);
+				preparedStatementCount.setString(1, starQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(2, titleQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(3, directorQuery.toLowerCase() + "%");
+				if (!yearQuery.equals("")) {
+					preparedStatementCount.setInt(4, Integer.parseInt(yearQuery));
+				}
 					
 			}
 			else if (titleQuery.equals("") && directorQuery.equals("") && yearQuery.equals("")){
 				queryCount = "select count(*) as total from movies;";
+				preparedStatementCount = dbcon.prepareStatement(queryCount);
 			}
 			else {
-				queryCount = String.format("select count(*) as total from movies " + 
-						"where lower(title) like lower(%s) AND " + 
-						"lower(director) like lower(%s)" +
-						(yearQuery.equals("") ? ";" : (" AND year=" + yearQuery + ";")), ("'" + titleQuery+"%'"), ("'" + directorQuery +"%'"));
-				System.out.println(queryCount);
-
+				queryCount = "select count(*) as total from movies " + 
+						"where lower(title) like ? AND " + 
+						"lower(director) like ?" +
+						(yearQuery.equals("") ? ";" : (" AND year=?;"));
+//				, ("'" + titleQuery+"%'"), ("'" + directorQuery +"%'"));
+				preparedStatementCount = dbcon.prepareStatement(queryCount);
+				preparedStatementCount.setString(1, titleQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(2, directorQuery.toLowerCase() + "%");
+				if (!yearQuery.equals("")) {
+					preparedStatementCount.setInt(3, Integer.parseInt(yearQuery));
+				}
 			}
 			
-			PreparedStatement statementCount = dbcon.prepareStatement(queryCount);
-			ResultSet rsCount = statementCount.executeQuery();
+			ResultSet rsCount = preparedStatementCount.executeQuery();
 			int counter = 0;
 			while (rsCount.next()) {
 				counter = rsCount.getInt("total");
@@ -100,18 +113,34 @@ public class DbServlet extends HttpServlet {
 			
 			if (!idQuery.equals(""))
 				counter = 1;
+			
+			// For test
+			System.out.println("queryCount: " + queryCount);
 			System.out.println("Counter: " + counter);
+			
+			/*-------------------------------------------------------------*/
+			
 			// Construct a query with parameter represented by "?"
 			// Placeholder cannot be used for columns' name, only be used for the value of parameter
 			String query = "";
+			PreparedStatement preparedStatement;
+			
 			if (!idQuery.equals("")) {
 				query = "select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " +
-						"where movies.id='" + idQuery + "' order by rating desc limit ?, ?;";
+						"where movies.id=? order by rating desc limit ?, ?;";
+				preparedStatement = dbcon.prepareStatement(query);
+				preparedStatement.setString(1, idQuery);
+				preparedStatement.setInt(2, pageNumber);
+				preparedStatement.setInt(3, movieNumber);
 			}
 			else if (!genreQuery.equals("")){
 				query = String.format("select movies.id as movieId, title, year, director, rating from genres, genres_in_movies, movies left join ratings on movies.id=ratings.movieId " + 
 						"where movies.id=genres_in_movies.movieId " + 
-						"and genres_in_movies.genreId=genres.id and genres.name='" + genreQuery + "' order by %s limit ?, ?;", sortBy);
+						"and genres_in_movies.genreId=genres.id and genres.name=? order by %s limit ?, ?;", sortBy);
+				preparedStatement = dbcon.prepareStatement(query);
+				preparedStatement.setString(1, genreQuery);
+				preparedStatement.setInt(2, pageNumber);
+				preparedStatement.setInt(3, movieNumber);
 			}
 			else if (!starQuery.equals("")) {
 				query = String.format("select movies.id as movieId, title, year, director, rating " +
@@ -122,39 +151,69 @@ public class DbServlet extends HttpServlet {
                         "on stars_in_movies.movieId=movies.id " +
                         "left join ratings " +
                         "on movies.id=ratings.movieId " +
-                        "where lower(name) like lower(%s) AND " +
-                        "lower(title) like lower(%s) AND " +
-                        "lower(director) like lower(%s)" +
-                        (yearQuery.equals("") ? "" : (" AND year=" + yearQuery )) + 
-                        " order by %s limit ?, ?;",
-                        ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"), sortBy); // string format args	
+                        "where lower(name) like ? AND " +
+                        "lower(title) like ? AND " +
+                        "lower(director) like ?" +
+                        (yearQuery.equals("") ? "" : (" AND year=?" )) + 
+                        " order by %s limit ?, ?;", sortBy);
+//                        ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"), sortBy); // string format args	
+				preparedStatement = dbcon.prepareStatement(query);
+				preparedStatement.setString(1, starQuery.toLowerCase() + "%");
+				preparedStatement.setString(2, titleQuery.toLowerCase() + "%");
+				preparedStatement.setString(3, directorQuery.toLowerCase() + "%");
+				if (!yearQuery.equals("")) {
+					preparedStatement.setInt(4, Integer.parseInt(yearQuery));
+					preparedStatement.setInt(5, pageNumber);
+					preparedStatement.setInt(6, movieNumber);
+				}
+				else {
+					preparedStatement.setInt(4, pageNumber);
+					preparedStatement.setInt(5, movieNumber);
+				}
+	
 			}
 			else if (titleQuery.equals("") && directorQuery.equals("") && yearQuery.equals("")) {
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
 						"order by %s limit ?, ?;", sortBy); 
+				preparedStatement = dbcon.prepareStatement(query);
+				preparedStatement.setInt(1, pageNumber);
+				preparedStatement.setInt(2, movieNumber);
 			}
 			else {
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-						"where lower(title) like lower(%s) AND " + 
-						"lower(director) like lower(%s)" +
-						(yearQuery.equals("") ? "" : (" AND year=" + yearQuery )) + " order by %s limit ?, ?;", ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"), sortBy);
+						"where lower(title) like ? AND " + 
+						"lower(director) like ?" +
+						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
+						
+//						, ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"), sortBy);
 						
 //						String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
 //						"order by %s limit ?, ?;", sortBy);	
+				preparedStatement = dbcon.prepareStatement(query);
+				preparedStatement.setString(1, titleQuery.toLowerCase() + "%");
+				preparedStatement.setString(2, directorQuery.toLowerCase() + "%");
+				if (!yearQuery.equals("")) {
+					preparedStatement.setInt(3, Integer.parseInt(yearQuery));
+					preparedStatement.setInt(4, pageNumber);
+					preparedStatement.setInt(5, movieNumber);
+				}
+				else {
+					preparedStatement.setInt(3, pageNumber);
+					preparedStatement.setInt(4, movieNumber);
+				}
 			}
 			
 			// For test
 			System.out.println("Acutal sent query: " + query);
 			
-			// Declare our statement
-			PreparedStatement statement = dbcon.prepareStatement(query);
+//			// Declare our statement
+//			PreparedStatement statement = dbcon.prepareStatement(query);
+//
+////			 Set the parameter represented by "?" in the query to the id we get from url,
+////			 num 1 indicates the first "?" in the query
 
-//			 Set the parameter represented by "?" in the query to the id we get from url,
-//			 num 1 indicates the first "?" in the query
-			statement.setInt(1, pageNumber);
-			statement.setInt(2, movieNumber);
 			// Perform the query
-			ResultSet rs = statement.executeQuery();
+			ResultSet rs = preparedStatement.executeQuery();
 
 			JsonArray jsonArray = new JsonArray();
 			// Iterate through each row of rs
@@ -180,9 +239,11 @@ public class DbServlet extends HttpServlet {
 				jsonObject.addProperty("movieRating", movieRating);
 				
         		String query_star = "select starId, name from stars, stars_in_movies where stars.id=stars_in_movies.starId and " + 
-        				"stars_in_movies.movieId='" + movieId + "';";
-        		Statement statementStar = dbcon.createStatement();
-        		ResultSet resultSetStar = statementStar.executeQuery(query_star);
+        				"stars_in_movies.movieId=?;";
+        		PreparedStatement preparedStatementStar = dbcon.prepareStatement(query_star);
+        		preparedStatementStar.setString(1, movieId);
+        		ResultSet resultSetStar = preparedStatementStar.executeQuery();
+        		
         		while (resultSetStar.next()) {
         			String starName = resultSetStar.getString("name");
         			String starId = resultSetStar.getString("starId");
@@ -199,9 +260,11 @@ public class DbServlet extends HttpServlet {
         		jsonObject.addProperty("listofStars", listofStars);
         		
         		String query_genre = "select name from genres, genres_in_movies where genres.id=genres_in_movies.genreId and " + 
-        				"genres_in_movies.movieId='" + movieId + "';";
-        		Statement statementGenre = dbcon.createStatement();
-        		ResultSet resultSetGenre = statementGenre.executeQuery(query_genre);
+        				"genres_in_movies.movieId=?;";
+        		PreparedStatement preparedStatementGenre = dbcon.prepareStatement(query_genre);
+        		preparedStatementGenre.setString(1, movieId);
+        		ResultSet resultSetGenre = preparedStatementGenre.executeQuery();
+        		
         		while (resultSetGenre.next()) {
         			String genreName = resultSetGenre.getString("name");
         			if (! resultSetGenre.isLast())
@@ -218,8 +281,8 @@ public class DbServlet extends HttpServlet {
 				
 				resultSetStar.close();
 				resultSetGenre.close();
-				statementStar.close();
-				statementGenre.close();
+				preparedStatementStar.close();
+				preparedStatementGenre.close();
 			}
 			
             // write JSON string to output
@@ -227,8 +290,11 @@ public class DbServlet extends HttpServlet {
             // set response status to 200 (OK)
             response.setStatus(200);
             
+			// Close open resources
+			rsCount.close();
 			rs.close();
-			statement.close();
+			preparedStatementCount.close();
+			preparedStatement.close();
 			dbcon.close();
 		} catch (Exception e) {
 			// write error message JSON object to output

@@ -12,19 +12,19 @@
 	<link rel="icon" href="fablix.png" type="image/png">
 	<!-- This is link to font-awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Login</title>
+	<title>Employee Login</title>
 </head>
 <body class="bg-dark text-white">
 	<div class="container">
 		<div style="margin-top:200px;" class="row justify-content-md-center">
-			<h1 style="font-family: cursive; color: red;"><b>Fabflix</b></h1>
+			<h1 style="font-family: Arial; color: red;"><b>Fabflix Employee</b></h1>
 		</div>
 		<form id="login_form" class="form-horizontal" method="post" action="#">
 			<div class="form-group">
 				<div style="margin:50px;" class="row justify-content-md-center">			
 					<label class="control-label col-lg-3" for="email"><b>Username:</b><i style="color:#ffffff; margin-left:10px;" class="fa fa-envelope-open-o" aria-hidden="true"></i></label>
 					<div class="col-xs-3">
-						<input type="text" class="form-control" placeholder="Enter E-mail" id="email" name="email">
+						<input type="text" class="form-control" placeholder="Enter E-mail" id="email" name="employee_email">
 						<br>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 				<div style="margin:50px;" class="row justify-content-md-center">	
 					<label class="control-label col-lg-3" for="pwd"><b>Password:</b><i style="margin-left:10px;" class="fa fa-key" aria-hidden="true"></i></label>
 					<div class="col-xs-3">
-						<input type="password"class="form-control" placeholder="Enter Password" id="pwd" name="password">
+						<input type="password"class="form-control" placeholder="Enter Password" id="pwd" name="employee_password">
 						<br>
 					</div>
 				</div>
@@ -52,6 +52,7 @@
 			</div>
 		</form>
 	</div>
+	
 	<div style="text-align:center; margin:30px;" id="login_error_message"></div>
 
 	<!-- Load jQuery and Bootstrap JS -->
@@ -60,6 +61,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	
 	<!-- include our own JS file -->
-	<script src="./login.js"></script>
+	<script src="./_dashboard.js"></script>
 </body>
 </html>
