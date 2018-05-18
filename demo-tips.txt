@@ -1,8 +1,17 @@
 """
+First to do in demo:
+
+Run parser program time: 1m55.910s
+
+naive Mysql movies insert: 11 second;
+Naive mysql genre insert: less than 1 second;
+
+
+export CLASSPATH=/usr/share/java/mysql-connector-java-5.1.38.jar:$CLASSPATH
 
 LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/movie-data.txt' INTO TABLE movies fields terminated BY "&";
 
-LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/genre-data.txt' INTO TABLE genres fields terminated BY "&"; 
+LOAD DATA LOCAL infile '/home/ubuntu/cs122b-spring18-team-3/project/src/genre-data.txt' INTO TABLE genres fields terminated BY "&" (name) SET id=NULL;
 
 LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/genres-in-movies-data.txt' INTO TABLE genres_in_movies fields terminated BY "&";
 
@@ -10,4 +19,15 @@ LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/star-data.txt' INTO TABLE stars 
 
 LOAD DATA LOCAL infile '/Users/dayuebai/Desktop/stars-in-movies-data.txt' INTO TABLE stars_in_movies fields terminated BY "&";
 
+Start:
+sudo /etc/init.d/mysql start
+
+Stop:
+sudo /etc/init.d/mysql stop
+
+Restart / reload configs:
+sudo /etc/init.d/mysql restart
+
+Check run status:
+sudo /etc/init.d/mysql status
 """

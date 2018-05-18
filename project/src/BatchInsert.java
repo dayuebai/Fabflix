@@ -128,11 +128,14 @@ public class BatchInsert {
 	            	
 	            	ps4.setString(1, id);
 	            	ps4.setString(2, name);
-	            	
-	            	if (temp[2].equals("NULL"))
+
+	            	try {
+	            		String t = temp[2];
+	            		ps4.setInt(3, Integer.parseInt(t));
+	            	}
+	            	catch (ArrayIndexOutOfBoundsException e) {
 	            		ps4.setNull(3, Types.INTEGER);
-	            	else
-	            		ps4.setInt(3, Integer.parseInt(temp[2]));
+	            	}
 	            	
 	            	ps4.addBatch();
 	            }	            
