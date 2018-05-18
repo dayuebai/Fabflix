@@ -35,7 +35,7 @@ CREATE PROCEDURE add_movie(IN title VARCHAR(100),IN year INT(11),IN director VAR
  	INSERT INTO movies(movies.id,movies.title,movies.year,movies.director)
  	VALUES(j,title,year,director);
 
- 	SELECT COUNT(*) INTO l from stars where stars.name=star;
+ 	SELECT COUNT(*) INTO l from stars where stars.name=star and stars.birthYear=birthYear;
 	 IF l=0 THEN
 	 	CALL add_single_star(star,birthYear);
 	 END IF;
@@ -43,7 +43,7 @@ CREATE PROCEDURE add_movie(IN title VARCHAR(100),IN year INT(11),IN director VAR
 	 IF m=0 THEN
 	 	INSERT INTO genres(name) VALUES(genre);
 	 END IF;
-	 SELECT id INTO n FROM stars where stars.name=star;
+	 SELECT max(id) INTO n FROM stars where stars.name=star;
 	 SELECT id INTO o FROM genres where genres.name=genre;
 	 INSERT INTO stars_in_movies(starId,movieId) 
 	 VALUES(n,j);
