@@ -1,4 +1,26 @@
 """
+Before demo: update and check recaptcha ip
+
+Do encryption: 
+
+cd project3-encryption-example
+
+mvn compile
+
+to run UpdateSecurePassword: 
+
+mvn exec:java -Dexec.mainClass="UpdateSecureCustomerPwd"
+mvn exec:java -Dexec.mainClass="UpdateSecureEmployeePwd"
+
+to run VerifyPassword: 
+
+mvn exec:java -Dexec.mainClass="VerifyPassword"
+
+When execute java program using maven in command line, if the program doesn't exist after it finishes, you can just kill it.
+
+
+
+
 First to do in demo:
 
 Run parser program time: 1m55.910s
