@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
 
 @WebServlet(name = "DbServlet", urlPatterns = "/api/db")
 public class DbServlet extends HttpServlet {
@@ -48,6 +49,11 @@ public class DbServlet extends HttpServlet {
 		String idQuery = request.getParameter("id");
 		
 		System.out.println(idQuery);
+		
+		// Process title query
+		System.out.println("title Query received: " + titleQuery);
+		String[] tokenArray = titleQuery.split(" ");
+		
 		
 		// Output stream to STDOUT
 		PrintWriter out = response.getWriter();
@@ -93,12 +99,22 @@ public class DbServlet extends HttpServlet {
 			}
 			else {
 				queryCount = "select count(*) as total from movies " + 
-						"where lower(title) like ? AND " + 
+						"where MATCH(title) against (? IN BOOLEAN MODE) AND " + 
 						"lower(director) like ?" +
 						(yearQuery.equals("") ? ";" : (" AND year=?;"));
 //				, ("'" + titleQuery+"%'"), ("'" + directorQuery +"%'"));
+				
+				String titleMatchPattern = "";
+				for (String token : tokenArray) {
+					titleMatchPattern += "+" + token.trim() + "* ";
+				}
+				titleMatchPattern = titleMatchPattern.trim();
+				
+				// For test
+				System.out.println("title match pattern: " + titleMatchPattern);
+				
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
-				preparedStatementCount.setString(1, titleQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(1, titleMatchPattern);
 				preparedStatementCount.setString(2, directorQuery.toLowerCase() + "%");
 				if (!yearQuery.equals("")) {
 					preparedStatementCount.setInt(3, Integer.parseInt(yearQuery));
@@ -181,7 +197,7 @@ public class DbServlet extends HttpServlet {
 			}
 			else {
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-						"where lower(title) like ? AND " + 
+						"where MATCH(title) against (? IN BOOLEAN MODE) AND " + 
 						"lower(director) like ?" +
 						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
 						
@@ -189,8 +205,17 @@ public class DbServlet extends HttpServlet {
 						
 //						String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
 //						"order by %s limit ?, ?;", sortBy);	
+				String titleMatchPattern = "";
+				for (String token : tokenArray) {
+					titleMatchPattern += "+" + token.trim() + "* ";
+				}
+				titleMatchPattern = titleMatchPattern.trim();
+				
+				// For test
+				System.out.println("title match pattern: " + titleMatchPattern);
+				
 				preparedStatement = dbcon.prepareStatement(query);
-				preparedStatement.setString(1, titleQuery.toLowerCase() + "%");
+				preparedStatement.setString(1, titleMatchPattern);
 				preparedStatement.setString(2, directorQuery.toLowerCase() + "%");
 				if (!yearQuery.equals("")) {
 					preparedStatement.setInt(3, Integer.parseInt(yearQuery));
