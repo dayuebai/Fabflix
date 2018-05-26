@@ -52,7 +52,7 @@ public class DbServlet extends HttpServlet {
 		
 		// Process title query
 		System.out.println("title Query received: " + titleQuery);
-		String[] tokenArray = titleQuery.split(" ");
+		String[] tokenArray = titleQuery.trim().split(" ");
 		
 		
 		// Output stream to STDOUT

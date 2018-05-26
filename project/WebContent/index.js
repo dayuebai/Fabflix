@@ -1,6 +1,6 @@
 
 function handleResult(resultData) {
-	console.log("Receive all genres from backend server");
+//	console.log("Receive all genres from backend server");
 	
 	let rowHTML = "";
 	for (let i = 0; i < resultData.length; ++i) {
@@ -11,7 +11,7 @@ function handleResult(resultData) {
 		}
 	}
 	
-    console.log(rowHTML);
+//    console.log(rowHTML);
     // Append the row created to the table body, which will refresh the page
     $(".modal-body.all_genres").append(rowHTML);
 	

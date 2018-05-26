@@ -1,4 +1,4 @@
-create table movies(id varchar(10) primary key, title varchar(100) not null, year integer not null, director varchar(100) not null);
+create table movies(id varchar(10) primary key, title varchar(100) not null, year integer not null, director varchar(100) not null, FULLTEXT (title));
 
 create table stars(id varchar(10) primary key, name varchar(100) not null, birthYear integer);
 
