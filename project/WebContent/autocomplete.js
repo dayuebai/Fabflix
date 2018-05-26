@@ -28,9 +28,10 @@ function handleLookup(query, doneCallback) {
 	console.log("autocomplete initiated");
 	
 	if (queryHistory[query] !== undefined) {
-		console.log("Find cached result in current session's search history");
+		console.log("Find cached results in current session's search history");
 		var jsonData = JSON.parse(queryHistory[query]);
 		doneCallback( { suggestions: jsonData } );
+		console.log(jsonData);
 	}
 	else {
 		// sending the HTTP GET request to the Java Servlet endpoint hero-suggestion
@@ -88,9 +89,10 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
 function handleSelectSuggestion(suggestion) {
 	// TODO: jump to the specific result page based on the selected suggestion
 	
-	console.log("you select " + suggestion["value"])
-	var url = suggestion["data"]["category"] + "?id=" + suggestion["data"]["movieId"]
+	console.log("Select suggestion movie: " + suggestion["value"])
+	var url = "movies.html?id=" + suggestion["data"]["movieId"]
 	console.log(url)
+	window.location.replace(url);
 }
 
 
@@ -123,16 +125,9 @@ $('#autocomplete').autocomplete({
  * do normal full text search if no suggestion is selected 
  */
 function handleNormalSearch(query) {
-	console.log("doing normal search with query: " + query);
+	console.log("Press ENTER to do normal search with query: " + query);
 	// TODO: you should do normal search here
-//	window.location.replace("movies.html");
-	
-//	jQuery.ajax({
-//		"method": "GET",
-//		// generate the request url from the query.
-//		// escape the query string to avoid errors caused by special characters 
-//		"url": "movies.html?title=" + query
-//	})
+	window.location.replace("movies.html?title=" + query);
 }
 
 // bind pressing enter key to a handler function
@@ -140,10 +135,18 @@ $('#autocomplete').keypress(function(event) {
 	// keyCode 13 is the enter key
 	if (event.keyCode == 13) {
 		// pass the value of the input box to the handler function
+		event.preventDefault();
 		handleNormalSearch($('#autocomplete').val())
 	}
 })
 
 // TODO: if you have a "search" button, you may want to bind the onClick event as well of that button
-
+$('#searchButton').click(function(event) {
+	event.preventDefault();
+	window.location.replace("movies.html?title=" + $('#autocomplete').val())
+})
+//function searchMovieTitle() {
+//	console.log("Click search button to do normal search with query: ")
+//	window.location.replace("movies.html?title=" + $('#autocomplete').val())
+//}
 

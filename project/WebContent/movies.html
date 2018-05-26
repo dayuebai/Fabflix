@@ -67,6 +67,13 @@
 			color: red;
 		}
 
+		.autocomplete-suggestions { border: 1px solid #999; background: #000000; overflow: auto; }
+		.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+		.autocomplete-selected { background: #565759; }
+		.autocomplete-suggestions strong { font-weight: normal; color: red; }
+		.autocomplete-group { padding: 2px 5px; }
+		.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+		
 		.pagination>li>a, .pagination>li.disabled>a{
 			text-decoration: none;
 			background-color: #46484c;
@@ -129,89 +136,9 @@
 			</li>
 		</ul>	
 
-		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="movies.html">		
-<!--   			<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
-	  		</button>
-  			<div class="modal fade" id="myModal">
-                   <div class="modal-dialog modal-dialog-centered">
-                       <div class="modal-content">
-                           <div class="modal-header">
-                               <h4 style="color: black;" class="modal-title">Genres</h4>
-                               <button type="button" class="close" data-dismiss="modal">&times;</button>	
-                           </div>	
-                           <div style="color: #000000;" class="modal-body">
-                           	<a style="margin: 12px 10px;" href="movies.html?genre=Action">Action</a>
-                           	<a style="margin: 12px 10px;" href="movies.html?genre=Adult">Adult</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Adventure">Adventure</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Animation">Animation</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Biography">Biography</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Comedy">Comedy</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Crime">Crime</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Documentary">Documentary</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Drama">Drama</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Family">Family</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Fantasy">Fantasy</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=History">History</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Horror">Horror</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Music">Music</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Musical">Musical</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Mystery">Mystery</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Reality-TV">Reality-TV</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Romance">Romance</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Sci-Fi">Sci-Fi</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Sport">Sport</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Thriller">Thriller</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=War">War</a>
-							<a style="margin: 12px 10px;" href="movies.html?genre=Western">Western</a>
-						</div>
-						<div class="modal-header">
-                               <h4 style="color: black;" class="modal-title">Titles</h4>
-                           </div>
-                           <div style="color: black;" class="modal-body">
-							<a style="margin: 12px 10px;" href="movies.html?title=0">0</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=1">1</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=2">2</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=3">3</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=4">4</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=5">5</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=6">6</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=7">7</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=8">8</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=9">9</a>
-							<br>
-							<a style="margin: 12px 10px;" href="movies.html?title=A">A</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=B">B</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=C">C</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=D">D</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=E">E</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=F">F</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=G">G</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=H">H</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=I">I</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=J">J</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=K">K</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=L">L</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=M">M</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=N">N</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=O">O</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=P">P</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=Q">Q</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=R">R</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=S">S</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=T">T</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=U">U</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=V">V</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=W">W</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=X">X</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=Y">Y</a>
-							<a style="margin: 12px 10px;" href="movies.html?title=Z">Z</a>
-						</div>
-					</div>
-				</div>
-			</div> -->
-  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" type="text" name="title" placeholder="Find movies by titles...">
-			<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
+		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="#">		
+  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" id="autocomplete" type="text" name="title" placeholder="Find movies by titles...">
+  			<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" id="searchButton">
 				<i class="fa fa-search fa-lg" aria-hidden="true"></i>
 			</button>
 		</form>
@@ -267,12 +194,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
+		
 	<!-- Load our own JS file -->
 	<!-- The path is relative to single-star.html, since these two files are in the same directory -->
 	<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
 	     otherwise the url is relative to the root path-->
 	<script src="movies.js"></script>
-	
+	<script src="autocomplete.js"></script>
 </body>
 </html>

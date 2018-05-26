@@ -12,11 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- This is link to font-awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    	
-	<!-- <link href="style.css" type="text/css" rel="stylesheet"> -->	
-	 <!-- include jquery autocomplete JS  -->
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">    
     
 	<style>
 		.carousel-inner > .item > img{
@@ -110,7 +106,7 @@
 			</li>
 		</ul>	
 
-		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="movies.html">
+		<form style="width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="#">
 				<button style="margin: 3px; padding: 5px; background-color: #000000; color: red;" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
 	    			<i class="fa fa-filter fa-lg" aria-hidden="true"></i>
 	  			</button>
@@ -170,7 +166,7 @@
 				</div>
 	  			
 	  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" id="autocomplete" type="text" name="title" placeholder="Find movies by titles...">
-				<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" type="submit">
+	  			<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" id="searchButton">
 					<i class="fa fa-search fa-lg" aria-hidden="true"></i>
 				</button>
 		</form>
