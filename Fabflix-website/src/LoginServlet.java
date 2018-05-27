@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 
         // Verify reCAPTCHA
         try {
-            RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+            RecaptchaVerifyUtils.verify(gRecaptchaResponse, RecaptchaConstants.SECRET_KEY);
         } catch (Exception e) {
             out.println("<html>");
             out.println("<head><title>Error</title></head>");

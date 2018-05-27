@@ -59,10 +59,10 @@ public class LoginFilter implements Filter {
     // You might also want to allow some CSS files, etc..
     private boolean isUrlAllowedWithoutLogin(String requestURI) {
         requestURI = requestURI.toLowerCase();
-
+        
         return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
                 || requestURI.endsWith("api/login") || requestURI.endsWith("_dashboard.html") 
-                || requestURI.endsWith("_dashboard.js");
+                || requestURI.endsWith("_dashboard.js") || requestURI.endsWith("api/android-login");
     }
 
     /**
