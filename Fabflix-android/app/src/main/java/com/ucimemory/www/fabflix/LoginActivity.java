@@ -69,7 +69,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
     private View mLoginFormView;
 
     @Override
@@ -246,7 +245,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }  // HTTP POST Form Data
         };
 
-        SafetyNet.getClient(this).verifyWithRecaptcha("6LdaqVsUAAAAABF6n422v0lEJwybK3xGvjC4Bwdz")
+        SafetyNet.getClient(this).verifyWithRecaptcha("6Le_UlsUAAAAAGMOwxDOHSorNI9GM8E5gd94MNo0")
                 .addOnSuccessListener(this, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
                     @Override
                     public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {

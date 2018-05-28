@@ -20,4 +20,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_main">Fabflix</string>
+    <string name="title_home">Home</string>
+    <string name="title_movies">Movies</string>
+    <string name="title_me">Me</string>
+    <string name="search">Search</string>
+    <string name="title_activity_search">Movies</string>
 </resources>
