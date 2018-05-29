@@ -155,7 +155,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void showPagination(int size, String query, String attr, String pageNumber) {
         int counter = (int) Math.ceil(size * 1.0/ 10);
-        ArrayList<Button> buttons = new ArrayList<Button>();
+        final ArrayList<Button> buttons = new ArrayList<Button>();
         final String q = query;
         final String a = attr;
 
@@ -188,7 +188,12 @@ public class SearchActivity extends AppCompatActivity {
             buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
             buttons.get(i).setText(Integer.toString(o + 1));
             buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
-            final int k = o;
+
+            if (o+1 == Integer.parseInt(pageNumber)) {
+                buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+            }
+
+            final int k = o, x = i;
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             buttonLayout.addView(buttons.get(i), layoutParams);
 
@@ -196,6 +201,7 @@ public class SearchActivity extends AppCompatActivity {
                 public void onClick(View v)
                 {
                     connectToTomcat(q, a, Integer.toString(k + 1));
+                    buttons.get(x).setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light));
                 }
             });
 
@@ -207,15 +213,19 @@ public class SearchActivity extends AppCompatActivity {
             buttons.get(i).setText(Integer.toString(counter));
             buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
 
+            if (counter == Integer.parseInt(pageNumber)) {
+                buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+            }
+
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             buttonLayout.addView(buttons.get(i), layoutParams);
 
-            final int c = counter;
+            final int c = counter, z = i;
             buttons.get(i).setOnClickListener(new OnClickListener() {
                 public void onClick(View v)
                 {
-
                     connectToTomcat(q, a, Integer.toString(c));
+                    buttons.get(z).setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light));
                 }
             });
 

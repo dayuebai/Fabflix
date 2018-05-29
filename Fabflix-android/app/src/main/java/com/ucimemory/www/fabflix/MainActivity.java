@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    showFragment(new homeFragment());
+                    showFragment(new homeFragment());
                     return true;
                 case R.id.navigation_movies:
                     showFragment(new movieFragment());

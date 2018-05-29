@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class movieFragment extends Fragment {
+public class homeFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.movie_fragment, container, false);
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
 
         return view;
     }

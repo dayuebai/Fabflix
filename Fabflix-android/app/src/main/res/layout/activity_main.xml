@@ -17,6 +17,11 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation">
     </FrameLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher" />
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
