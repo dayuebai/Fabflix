@@ -1,5 +1,7 @@
 package com.ucimemory.www.fabflix;
 
+import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +38,7 @@ import com.google.gson.JsonArray;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 
@@ -55,15 +62,26 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
             System.out.println(query);
-            connectToTomcat(query);
+            connectToTomcat(query, "title", "1");
 
         }
     }
 
-    private void connectToTomcat(String query) {
+
+    public void connectToTomcat(String query, String attr, String pageNumber) {
         final RequestQueue queue = NetworkManager.sharedManager(this).queue;
-        final String queryString = "?id=&sort=rating&order=desc&title="
-                + query + "&genre=&year=&director=&star=&pageNumber=1&movieNumber=10";
+        final String queryString;
+        final String q = query;
+        final String a = attr;
+        final String p = pageNumber;
+
+        if (attr.equals("title")){
+            queryString = "?id=&sort=rating&order=desc&title="
+                    + q + "&genre=&year=&director=&star=&pageNumber=" + pageNumber + "&movieNumber=10";
+        }
+        else {
+            queryString =  "?id=" + q + "&sort=rating&order=desc&title=&genre=&year=&director=&star=&pageNumber=" + pageNumber + "&movieNumber=10";
+        }
 
         final StringRequest loginRequest = new StringRequest(Request.Method.GET, "https://10.0.2.2:8443/Fabflix-website/api/db" + queryString,
                 new Response.Listener<String>() {
@@ -73,7 +91,10 @@ public class SearchActivity extends AppCompatActivity {
                         JsonArray httpResponse = new JsonParser().parse(response).getAsJsonArray();
 
                         if (httpResponse.size() > 0) {
-                            ArrayList<Movie> movies = new ArrayList<Movie>();
+
+
+                            final ArrayList<Movie> movies = new ArrayList<Movie>();
+                            int totalFound = httpResponse.get(0).getAsJsonObject().get("totalFound").getAsInt();
 
                             for (JsonElement movie : httpResponse) {
                                 String title = movie.getAsJsonObject().get("movieName").getAsString();
@@ -85,6 +106,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                 movies.add(new Movie(title, year, director, listOfGenres, listOfStars, id));
                             }
+                            showPagination(totalFound, q, a, p);
 
                             MovieListViewAdapter adapter = new MovieListViewAdapter(movies, getApplicationContext());
 
@@ -94,7 +116,19 @@ public class SearchActivity extends AppCompatActivity {
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                    System.out.println("test output for clicking");
+                                    Movie movie = movies.get(position);
+                                    String mId = movie.getId();
+//                                    System.out.println(mId);
+//                                    connectToTomcat(mId,"id");
 
+                                    Intent goToIntent = new Intent(getApplicationContext(), SingleActivity.class);
+
+                                    goToIntent.putExtra("id", mId);
+
+                                    System.out.println("Search box input query: " + q);
+
+                                    startActivity(goToIntent);
                                 }
                             });
 
@@ -116,6 +150,93 @@ public class SearchActivity extends AppCompatActivity {
         );
 
         queue.add(loginRequest);
+
+    }
+
+    private void showPagination(int size, String query, String attr, String pageNumber) {
+        int counter = (int) Math.ceil(size * 1.0/ 10);
+        ArrayList<Button> buttons = new ArrayList<Button>();
+        final String q = query;
+        final String a = attr;
+
+        System.out.println("The number of buttons: " + counter);
+        int i = 0;
+        LinearLayout buttonLayout = (LinearLayout) findViewById(R.id.buttons);
+        buttonLayout.removeAllViews();
+
+        if (Integer.parseInt(pageNumber) > 1) {
+            buttons.add(new Button(this));
+            buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttons.get(i).setText("Previous");
+            buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
+            final int k = Integer.parseInt(pageNumber) - 1;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            buttonLayout.addView(buttons.get(i), layoutParams);
+
+            buttons.get(i).setOnClickListener(new OnClickListener() {
+                public void onClick(View v)
+                {
+                    connectToTomcat(q, a, Integer.toString(k));
+                }
+            });
+            ++i;
+        }
+
+        int o = 0;
+        for (; o < counter && o < 4; ++i, ++o) {
+            buttons.add(new Button(this));
+            buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttons.get(i).setText(Integer.toString(o + 1));
+            buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
+            final int k = o;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            buttonLayout.addView(buttons.get(i), layoutParams);
+
+            buttons.get(i).setOnClickListener(new OnClickListener() {
+                public void onClick(View v)
+                {
+                    connectToTomcat(q, a, Integer.toString(k + 1));
+                }
+            });
+
+        }
+
+        if (counter > 4) {
+            buttons.add(new Button(this));
+            buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttons.get(i).setText(Integer.toString(counter));
+            buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            buttonLayout.addView(buttons.get(i), layoutParams);
+
+            final int c = counter;
+            buttons.get(i).setOnClickListener(new OnClickListener() {
+                public void onClick(View v)
+                {
+
+                    connectToTomcat(q, a, Integer.toString(c));
+                }
+            });
+
+            ++i;
+        }
+        if (Integer.parseInt(pageNumber) < counter) {
+            buttons.add(new Button(this));
+            buttons.get(i).setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttons.get(i).setText("Next");
+            buttons.get(i).setGravity(Gravity.CENTER_HORIZONTAL);
+            final int k = Integer.parseInt(pageNumber) + 1;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            buttonLayout.addView(buttons.get(i), layoutParams);
+
+            buttons.get(i).setOnClickListener(new OnClickListener() {
+                public void onClick(View v)
+                {
+                    connectToTomcat(q, a, Integer.toString(k));
+                }
+            });
+        }
 
     }
 

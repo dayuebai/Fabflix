@@ -5,7 +5,7 @@
     android:layout_height="1000px"
     android:background="@android:color/holo_blue_light">
 
-    <Button
+    <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +13,6 @@
         android:text="A"
         android:textColor="@android:color/white"
         android:textSize="80px"
-        android:onClick="onClick"
         />
 
     <TextView
