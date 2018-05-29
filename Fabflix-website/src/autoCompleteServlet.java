@@ -39,10 +39,15 @@ public class autoCompleteServlet extends HttpServlet {
 			}	
 			
 			Connection dbcon = dataSource.getConnection();
-			String query = "SELECT id, title FROM movies left join ratings on movies.id=ratings.movieId WHERE lower(title) LIKE ? ORDER BY rating desc LIMIT 10";
+			int titleLength = titleQuery.length();
+			int threshold = (int) Math.floor(titleLength * 0.4);
+			String query = "SELECT id, title FROM movies left join ratings on movies.id=ratings.movieId WHERE lower(title) LIKE ? or edth(lower(title), ?, ?) ORDER BY rating desc LIMIT 10";
 			PreparedStatement preparedStatement = dbcon.prepareStatement(query);
 			
 			preparedStatement.setString(1, "%" + titleQuery.toLowerCase() + "%");
+			preparedStatement.setString(2, titleQuery.toLowerCase());
+			preparedStatement.setInt(3, threshold);
+			
 			System.out.println("The sql query is: " + query);
 			ResultSet rs = preparedStatement.executeQuery();
 			
