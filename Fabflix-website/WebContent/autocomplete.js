@@ -115,7 +115,7 @@ $('#autocomplete').autocomplete({
     		handleSelectSuggestion(suggestion)
     },
 
-//    groupBy: "category",
+    groupBy: "category",
     deferRequestBy: 300,
     minChars: 3,
 });
