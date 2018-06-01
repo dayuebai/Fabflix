@@ -1,11 +1,9 @@
 package com.ucimemory.www.fabflix;
 
-import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,8 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,26 +20,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.safetynet.SafetyNetApi;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
-    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +44,6 @@ public class SearchActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
-            System.out.println(query);
             connectToTomcat(query, "title", "1");
 
         }
@@ -83,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
             queryString =  "?id=" + q + "&sort=rating&order=desc&title=&genre=&year=&director=&star=&pageNumber=" + pageNumber + "&movieNumber=10";
         }
 
-        final StringRequest loginRequest = new StringRequest(Request.Method.GET, "https://10.0.2.2:8443/Fabflix-website/api/db" + queryString,
+        final StringRequest loginRequest = new StringRequest(Request.Method.GET, "https://52.14.144.44:8443/Fabflix-website/api/db" + queryString,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -116,11 +98,8 @@ public class SearchActivity extends AppCompatActivity {
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                    System.out.println("test output for clicking");
                                     Movie movie = movies.get(position);
                                     String mId = movie.getId();
-//                                    System.out.println(mId);
-//                                    connectToTomcat(mId,"id");
 
                                     Intent goToIntent = new Intent(getApplicationContext(), SingleActivity.class);
 
@@ -142,9 +121,8 @@ public class SearchActivity extends AppCompatActivity {
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("security.error", error.toString());
+                    public void onErrorResponse(VolleyError e) {
+                        Log.d("security.error", e.toString());
                     }
                 }
         );

@@ -98,11 +98,12 @@ public class DbServlet extends HttpServlet {
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
 			}
 			else {
+				int titleLength = titleQuery.length();
+				int threshold = (int) Math.floor(titleLength * 0.4);
 				queryCount = "select count(*) as total from movies " + 
-						"where MATCH(title) against (? IN BOOLEAN MODE) AND " + 
+						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
 						"lower(director) like ?" +
 						(yearQuery.equals("") ? ";" : (" AND year=?;"));
-//				, ("'" + titleQuery+"%'"), ("'" + directorQuery +"%'"));
 				
 				String titleMatchPattern = "";
 				for (String token : tokenArray) {
@@ -115,11 +116,17 @@ public class DbServlet extends HttpServlet {
 				
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
 				preparedStatementCount.setString(1, titleMatchPattern);
-				preparedStatementCount.setString(2, directorQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(2, titleQuery.toLowerCase());
+				preparedStatementCount.setInt(3, threshold);
+				preparedStatementCount.setString(4, directorQuery.toLowerCase() + "%");
 				if (!yearQuery.equals("")) {
-					preparedStatementCount.setInt(3, Integer.parseInt(yearQuery));
+					preparedStatementCount.setInt(5, Integer.parseInt(yearQuery));
 				}
 			}
+			
+			// For test
+			System.out.println("queryCount: " + queryCount);
+			
 			
 			ResultSet rsCount = preparedStatementCount.executeQuery();
 			int counter = 0;
@@ -130,8 +137,6 @@ public class DbServlet extends HttpServlet {
 			if (!idQuery.equals(""))
 				counter = 1;
 			
-			// For test
-			System.out.println("queryCount: " + queryCount);
 			System.out.println("Counter: " + counter);
 			
 			/*-------------------------------------------------------------*/
@@ -196,15 +201,13 @@ public class DbServlet extends HttpServlet {
 				preparedStatement.setInt(2, movieNumber);
 			}
 			else {
+				int titleLength = titleQuery.length();
+				int threshold = (int) Math.floor(titleLength * 0.4);
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-						"where MATCH(title) against (? IN BOOLEAN MODE) AND " + 
+						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
 						"lower(director) like ?" +
 						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
-						
-//						, ("'" + titleQuery+"%'"), ("'" + directorQuery+"%'"), sortBy);
-						
-//						String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-//						"order by %s limit ?, ?;", sortBy);	
+
 				String titleMatchPattern = "";
 				for (String token : tokenArray) {
 					titleMatchPattern += "+" + token.trim() + "* ";
@@ -216,15 +219,17 @@ public class DbServlet extends HttpServlet {
 				
 				preparedStatement = dbcon.prepareStatement(query);
 				preparedStatement.setString(1, titleMatchPattern);
-				preparedStatement.setString(2, directorQuery.toLowerCase() + "%");
+				preparedStatement.setString(2, titleQuery.toLowerCase());
+				preparedStatement.setInt(3, threshold);
+				preparedStatement.setString(4, directorQuery.toLowerCase() + "%");
 				if (!yearQuery.equals("")) {
-					preparedStatement.setInt(3, Integer.parseInt(yearQuery));
-					preparedStatement.setInt(4, pageNumber);
-					preparedStatement.setInt(5, movieNumber);
+					preparedStatement.setInt(5, Integer.parseInt(yearQuery));
+					preparedStatement.setInt(6, pageNumber);
+					preparedStatement.setInt(7, movieNumber);
 				}
 				else {
-					preparedStatement.setInt(3, pageNumber);
-					preparedStatement.setInt(4, movieNumber);
+					preparedStatement.setInt(5, pageNumber);
+					preparedStatement.setInt(6, movieNumber);
 				}
 			}
 			

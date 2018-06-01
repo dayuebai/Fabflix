@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,13 +29,6 @@ public class MovieListViewAdapter extends ArrayAdapter<Movie> {
         Movie movie = movies.get(position);
 
         TextView title = (TextView) view.findViewById(R.id.title);
-
-//        title.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                System.out.println("test output for clicking");
-//            }
-//        });
 
         TextView year = (TextView)view.findViewById(R.id.year);
         TextView director = (TextView)view.findViewById(R.id.director);
