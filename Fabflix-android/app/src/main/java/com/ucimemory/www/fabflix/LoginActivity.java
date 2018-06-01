@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity{
         // Use the same network queue across our application
         final RequestQueue queue = NetworkManager.sharedManager(this).queue;
 
-        final StringRequest loginRequest = new StringRequest(Request.Method.POST, "https://52.14.144.44:8443/Fabflix-website/api/android-login",
+        final StringRequest loginRequest = new StringRequest(Request.Method.POST, "https://18.217.63.24:8443/Fabflix-website/api/android-login",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
