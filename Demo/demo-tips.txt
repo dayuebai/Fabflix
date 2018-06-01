@@ -1,4 +1,49 @@
 """
+Project 4
+""
+1. Recaptcha for AWS IP
+2. Truncate Database and repopulate data
+
+DROP database moviedb;
+create database moviedb;
+SOURCE /home/ubuntu/cs122b-spring18-team-3/Data/create_table.sql
+SOURCE /home/ubuntu/cs122b-spring18-team-3/Data/movie-data.sql
+SOURCE /home/ubuntu/cs122b-spring18-team-3/Data/moviedb_stored_procedure.sql
+**ALTER TABLE movies ADD FULLTEXT(title);**
+
+***SOURCE /home/ubuntu/cs122b-spring18-team-3/Data/task6_create_table.sql***
+
+3. Run store procedure
+4. Run encrypter
+
+cd project3-encryption-example
+mvn compile
+mvn exec:java -Dexec.mainClass="UpdateSecureCustomerPwd"
+mvn exec:java -Dexec.mainClass="VerifyPassword"
+
+
+5. Don't run parser
+6. tomcat & mysql, android IP connect
+7. create fulltext search for movies table
+8. Change IP address for Android project recreate APK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+Project 3
+
+"""
 Before demo: update and check recaptcha ip
 
 Do encryption: 

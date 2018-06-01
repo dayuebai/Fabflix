@@ -65,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
             queryString =  "?id=" + q + "&sort=rating&order=desc&title=&genre=&year=&director=&star=&pageNumber=" + pageNumber + "&movieNumber=10";
         }
 
-        final StringRequest loginRequest = new StringRequest(Request.Method.GET, "https://52.14.144.44:8443/Fabflix-website/api/db" + queryString,
+        final StringRequest loginRequest = new StringRequest(Request.Method.GET, "https://18.217.63.24:8443/Fabflix-website/api/db" + queryString,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
