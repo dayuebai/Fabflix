@@ -1,6 +1,7 @@
 import com.google.gson.JsonObject;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,8 @@ public class AndroidLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 9L;
 
     // Create a dataSource which registered in web.xml
-    @Resource(name = "jdbc/moviedb")
-    private DataSource dataSource;
+//    @Resource(name = "jdbc/moviedb")
+//    private DataSource dataSource;
     
     public AndroidLoginServlet() {
         super();
@@ -55,8 +56,27 @@ public class AndroidLoginServlet extends HttpServlet {
         
         // then verify email / password
         try {
+            // the following few lines are for connection pooling
+            // Obtain our environment naming context
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.out.println("envCtx is NULL");
+
+            // Look up our data source
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            
+            if (ds == null)
+                System.out.println("ds is null.");
+
+            Connection dbCon = ds.getConnection();
+            if (dbCon == null)
+                System.out.println("dbcon is null.");
+            
             // Create a new connection to database
-            Connection dbCon = dataSource.getConnection();
+//            Connection dbCon = dataSource.getConnection();
             String query = "select * from customers where email=?";
             PreparedStatement preparedStatement = dbCon.prepareStatement(query);
             preparedStatement.setString(1, email);

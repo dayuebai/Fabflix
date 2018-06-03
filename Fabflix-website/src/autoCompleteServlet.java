@@ -1,7 +1,8 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +18,8 @@ import java.sql.ResultSet;
 public class autoCompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 8L;
 	
-	@Resource(name = "jdbc/moviedb")
-	private DataSource dataSource;
+//	@Resource(name = "jdbc/moviedb")
+//	private DataSource dataSource;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,7 +38,27 @@ public class autoCompleteServlet extends HttpServlet {
 				return;
 			}	
 			
-			Connection dbcon = dataSource.getConnection();
+            // the following few lines are for connection pooling
+            // Obtain our environment naming context
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.out.println("envCtx is NULL");
+
+            // Look up our data source
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+
+
+            if (ds == null)
+                System.out.println("ds is null.");
+
+            Connection dbcon = ds.getConnection();
+            if (dbcon == null)
+                System.out.println("dbcon is null.");
+            
+//			Connection dbcon = dataSource.getConnection();
 			int titleLength = titleQuery.length();
 			int threshold = (int) Math.floor(titleLength * 0.4);
 			String query = "SELECT id, title FROM movies left join ratings on movies.id=ratings.movieId WHERE lower(title) LIKE ? or edth(lower(title), ?, ?) ORDER BY rating desc LIMIT 10";

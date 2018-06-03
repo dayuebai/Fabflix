@@ -1,7 +1,8 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +26,8 @@ public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 7L;
 	
 	// Create a dataSource which registered in web.xml
-	@Resource(name = "jdbc/moviedb")
-	private DataSource dataSource;
+//	@Resource(name = "jdbc/moviedb")
+//	private DataSource dataSource;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -49,8 +50,32 @@ public class DashboardServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JsonArray jsonArray = new JsonArray();
 		try {
+            // the following few lines are for connection pooling
+            // Obtain our environment naming context
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+            // Look up our data source
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+
+            // the following commented lines are direct connections without pooling
+            //Class.forName("org.gjt.mm.mysql.Driver");
+            //Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+            if (ds == null)
+                System.out.println("ds is null.");
+
+            Connection dbcon = ds.getConnection();
+            if (dbcon == null)
+                System.out.println("dbcon is null.");
+			
 			// Get a connection from dataSource
-			Connection dbcon = dataSource.getConnection();
+//			Connection dbcon = dataSource.getConnection();
 			
 			if (starName==null && movieTitle==null) {
 				DatabaseMetaData dbmd = dbcon.getMetaData();
