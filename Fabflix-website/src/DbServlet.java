@@ -120,10 +120,16 @@ public class DbServlet extends HttpServlet {
 			else {
 				int titleLength = titleQuery.length();
 				int threshold = (int) Math.floor(titleLength * 0.4);
+				
 				queryCount = "select count(*) as total from movies " + 
-						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
-						"lower(director) like ?" +
-						(yearQuery.equals("") ? ";" : (" AND year=?;"));
+								"where MATCH(title) against (? IN BOOLEAN MODE) AND " +  
+				 				"lower(director) like ?" +
+				 				(yearQuery.equals("") ? ";" : (" AND year=?;"));
+//				fuzzy search query
+//				queryCount = "select count(*) as total from movies " + 
+//						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
+//						"lower(director) like ?" +
+//						(yearQuery.equals("") ? ";" : (" AND year=?;"));
 				
 				String titleMatchPattern = "";
 				for (String token : tokenArray) {
@@ -136,11 +142,15 @@ public class DbServlet extends HttpServlet {
 				
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
 				preparedStatementCount.setString(1, titleMatchPattern);
-				preparedStatementCount.setString(2, titleQuery.toLowerCase());
-				preparedStatementCount.setInt(3, threshold);
-				preparedStatementCount.setString(4, directorQuery.toLowerCase() + "%");
+				preparedStatementCount.setString(2, directorQuery.toLowerCase() + "%");
+
+//				preparedStatementCount.setString(2, titleQuery.toLowerCase());
+//				preparedStatementCount.setInt(3, threshold);
+//				preparedStatementCount.setString(4, directorQuery.toLowerCase() + "%");
+				
 				if (!yearQuery.equals("")) {
-					preparedStatementCount.setInt(5, Integer.parseInt(yearQuery));
+					preparedStatementCount.setInt(3, Integer.parseInt(yearQuery));
+//					preparedStatementCount.setInt(5, Integer.parseInt(yearQuery));
 				}
 			}
 			
@@ -223,10 +233,17 @@ public class DbServlet extends HttpServlet {
 			else {
 				int titleLength = titleQuery.length();
 				int threshold = (int) Math.floor(titleLength * 0.4);
+				
 				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
-						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
-						"lower(director) like ?" +
-						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
+						"where MATCH(title) against (? IN BOOLEAN MODE) AND " + 						 
+ 						"lower(director) like ?" +
+ 						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
+
+//				fuzzy search query
+//				query = String.format("select movies.id as movieId, title, year, director, rating from movies left join ratings on movies.id=ratings.movieId " + 
+//						"where (MATCH(title) against (? IN BOOLEAN MODE) or edth(lower(title), ?, ?)) AND " + 
+//						"lower(director) like ?" +
+//						(yearQuery.equals("") ? "" : (" AND year=?" )) + " order by %s limit ?, ?;", sortBy);
 
 				String titleMatchPattern = "";
 				for (String token : tokenArray) {
@@ -239,17 +256,27 @@ public class DbServlet extends HttpServlet {
 				
 				preparedStatement = dbcon.prepareStatement(query);
 				preparedStatement.setString(1, titleMatchPattern);
-				preparedStatement.setString(2, titleQuery.toLowerCase());
-				preparedStatement.setInt(3, threshold);
-				preparedStatement.setString(4, directorQuery.toLowerCase() + "%");
+				preparedStatement.setString(2, directorQuery.toLowerCase() + "%");
+				
+//				preparedStatement.setString(2, titleQuery.toLowerCase());
+//				preparedStatement.setInt(3, threshold);
+//				preparedStatement.setString(4, directorQuery.toLowerCase() + "%");
+				
 				if (!yearQuery.equals("")) {
-					preparedStatement.setInt(5, Integer.parseInt(yearQuery));
-					preparedStatement.setInt(6, pageNumber);
-					preparedStatement.setInt(7, movieNumber);
+					preparedStatement.setInt(3, Integer.parseInt(yearQuery));
+					preparedStatement.setInt(4, pageNumber);
+					preparedStatement.setInt(5, movieNumber);
+					
+//					preparedStatement.setInt(5, Integer.parseInt(yearQuery));
+//					preparedStatement.setInt(6, pageNumber);
+//					preparedStatement.setInt(7, movieNumber);
 				}
 				else {
-					preparedStatement.setInt(5, pageNumber);
-					preparedStatement.setInt(6, movieNumber);
+					preparedStatement.setInt(3, pageNumber);
+					preparedStatement.setInt(4, movieNumber);
+					
+//					preparedStatement.setInt(5, pageNumber);
+//					preparedStatement.setInt(6, movieNumber);
 				}
 			}
 			
