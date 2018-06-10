@@ -1,6 +1,7 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
@@ -15,9 +16,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 @WebServlet(name = "DbServlet", urlPatterns = "/api/db")
 public class DbServlet extends HttpServlet {
 	private static final long serialVersionUID = 2L;
+	private FileWriter log_output;
 	
 	// Create a dataSource which registered in web.xml
 //	@Resource(name = "jdbc/moviedb")
@@ -25,7 +30,11 @@ public class DbServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		long queryStartTime = System.nanoTime();
+		long jdbcSum = 0;
+	
+		
+		// ----------------------------------------------------------------------
 		response.setContentType("application/json"); // Response mime type
 
 		// Retrieve parameter id from url request.
@@ -59,8 +68,6 @@ public class DbServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-            // the following few lines are for connection pooling
-            // Obtain our environment naming context
 
             Context initCtx = new InitialContext();
             
@@ -69,7 +76,7 @@ public class DbServlet extends HttpServlet {
                 out.println("envCtx is NULL");
             
             // Look up our data source
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
             
             if (ds == null)
                 out.println("ds is null.");
@@ -77,10 +84,12 @@ public class DbServlet extends HttpServlet {
             Connection dbcon = ds.getConnection();
             if (dbcon == null)
                 out.println("dbcon is null.");
-            
-            
+			
 			// Get a connection from dataSource
 //			Connection dbcon = dataSource.getConnection();
+            
+            
+            dbcon.setReadOnly(true);
 			PreparedStatement preparedStatementCount;
 			String queryCount = "";
 			
@@ -103,7 +112,6 @@ public class DbServlet extends HttpServlet {
                         "lower(director) like ?" +
                         (yearQuery.equals("") ? ";" : (" AND year=?;")); // string format args
 				
-//                ("'" + starQuery + "%'"), ("'" + titleQuery +"%'"), ("'" + directorQuery+ "%'"))
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
 				preparedStatementCount.setString(1, starQuery.toLowerCase() + "%");
 				preparedStatementCount.setString(2, titleQuery.toLowerCase() + "%");
@@ -118,8 +126,8 @@ public class DbServlet extends HttpServlet {
 				preparedStatementCount = dbcon.prepareStatement(queryCount);
 			}
 			else {
-				int titleLength = titleQuery.length();
-				int threshold = (int) Math.floor(titleLength * 0.4);
+//				int titleLength = titleQuery.length();
+//				int threshold = (int) Math.floor(titleLength * 0.4);
 				
 				queryCount = "select count(*) as total from movies " + 
 								"where MATCH(title) against (? IN BOOLEAN MODE) AND " +  
@@ -144,21 +152,24 @@ public class DbServlet extends HttpServlet {
 				preparedStatementCount.setString(1, titleMatchPattern);
 				preparedStatementCount.setString(2, directorQuery.toLowerCase() + "%");
 
-//				preparedStatementCount.setString(2, titleQuery.toLowerCase());
-//				preparedStatementCount.setInt(3, threshold);
-//				preparedStatementCount.setString(4, directorQuery.toLowerCase() + "%");
 				
 				if (!yearQuery.equals("")) {
 					preparedStatementCount.setInt(3, Integer.parseInt(yearQuery));
-//					preparedStatementCount.setInt(5, Integer.parseInt(yearQuery));
 				}
 			}
 			
 			// For test
 			System.out.println("queryCount: " + queryCount);
+		
 			
-			
+			long jdbcStartTime1 = System.nanoTime();
+			//******************************************************************
 			ResultSet rsCount = preparedStatementCount.executeQuery();
+			//******************************************************************
+			long jdbcEndTime1 = System.nanoTime();
+			jdbcSum += jdbcEndTime1 - jdbcStartTime1;
+			
+			
 			int counter = 0;
 			while (rsCount.next()) {
 				counter = rsCount.getInt("total");
@@ -169,10 +180,6 @@ public class DbServlet extends HttpServlet {
 			
 			System.out.println("Counter: " + counter);
 			
-			/*-------------------------------------------------------------*/
-			
-			// Construct a query with parameter represented by "?"
-			// Placeholder cannot be used for columns' name, only be used for the value of parameter
 			String query = "";
 			PreparedStatement preparedStatement;
 			
@@ -257,40 +264,31 @@ public class DbServlet extends HttpServlet {
 				preparedStatement = dbcon.prepareStatement(query);
 				preparedStatement.setString(1, titleMatchPattern);
 				preparedStatement.setString(2, directorQuery.toLowerCase() + "%");
-				
-//				preparedStatement.setString(2, titleQuery.toLowerCase());
-//				preparedStatement.setInt(3, threshold);
-//				preparedStatement.setString(4, directorQuery.toLowerCase() + "%");
+
 				
 				if (!yearQuery.equals("")) {
 					preparedStatement.setInt(3, Integer.parseInt(yearQuery));
 					preparedStatement.setInt(4, pageNumber);
 					preparedStatement.setInt(5, movieNumber);
-					
-//					preparedStatement.setInt(5, Integer.parseInt(yearQuery));
-//					preparedStatement.setInt(6, pageNumber);
-//					preparedStatement.setInt(7, movieNumber);
+
 				}
 				else {
 					preparedStatement.setInt(3, pageNumber);
 					preparedStatement.setInt(4, movieNumber);
-					
-//					preparedStatement.setInt(5, pageNumber);
-//					preparedStatement.setInt(6, movieNumber);
 				}
 			}
 			
 			// For test
 			System.out.println("Acutal sent query: " + query);
 			
-//			// Declare our statement
-//			PreparedStatement statement = dbcon.prepareStatement(query);
-//
-////			 Set the parameter represented by "?" in the query to the id we get from url,
-////			 num 1 indicates the first "?" in the query
 
 			// Perform the query
+			long jdbcStartTime2 = System.nanoTime();
+			//***************************************************
 			ResultSet rs = preparedStatement.executeQuery();
+			//***************************************************
+			long jdbcEndTime2 = System.nanoTime();
+			jdbcSum += jdbcEndTime2 - jdbcStartTime2;
 
 			JsonArray jsonArray = new JsonArray();
 			// Iterate through each row of rs
@@ -319,7 +317,13 @@ public class DbServlet extends HttpServlet {
         				"stars_in_movies.movieId=?;";
         		PreparedStatement preparedStatementStar = dbcon.prepareStatement(query_star);
         		preparedStatementStar.setString(1, movieId);
+        		
+        		long jdbcStartTime3 = System.nanoTime();
+        		//********************************************************
         		ResultSet resultSetStar = preparedStatementStar.executeQuery();
+        		//********************************************************
+        		long jdbcEndTime3 = System.nanoTime();
+        		jdbcSum += jdbcEndTime3 - jdbcStartTime3;
         		
         		while (resultSetStar.next()) {
         			String starName = resultSetStar.getString("name");
@@ -340,7 +344,13 @@ public class DbServlet extends HttpServlet {
         				"genres_in_movies.movieId=?;";
         		PreparedStatement preparedStatementGenre = dbcon.prepareStatement(query_genre);
         		preparedStatementGenre.setString(1, movieId);
+        		
+        		long jdbcStartTime4 = System.nanoTime();
+        		//**************************************************************
         		ResultSet resultSetGenre = preparedStatementGenre.executeQuery();
+        		//**************************************************************
+        		long jdbcEndTime4 = System.nanoTime();
+        		jdbcSum += jdbcEndTime4 - jdbcStartTime4;
         		
         		while (resultSetGenre.next()) {
         			String genreName = resultSetGenre.getString("name");
@@ -383,5 +393,22 @@ public class DbServlet extends HttpServlet {
 			response.setStatus(500);
 		}
 		out.close();
+		
+		// ------------------------------------------------------------
+		long queryEndTime = System.nanoTime();
+		long queryElapsedTime = queryEndTime - queryStartTime;
+		
+    	try {
+    		String path = getServletContext().getRealPath("/");
+    		System.out.println(path + "/log.txt");
+    		log_output = new FileWriter(path + "/log.txt", true);
+    		log_output.write(queryElapsedTime + " " + jdbcSum + "\n");
+    		log_output.close();
+    	}
+    	catch(IOException e){
+    		System.err.print("FileWriter Constructor Error");
+    	}
+		System.out.println("TS: " + queryElapsedTime);
+		System.out.println("TJ: " + jdbcSum);
 	}
 }

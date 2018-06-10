@@ -60,7 +60,7 @@ public class DashboardServlet extends HttpServlet {
                 out.println("envCtx is NULL");
 
             // Look up our data source
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
 
             // the following commented lines are direct connections without pooling
             //Class.forName("org.gjt.mm.mysql.Driver");
@@ -71,6 +71,7 @@ public class DashboardServlet extends HttpServlet {
                 System.out.println("ds is null.");
 
             Connection dbcon = ds.getConnection();
+            dbcon.setReadOnly(false);
             if (dbcon == null)
                 System.out.println("dbcon is null.");
 			

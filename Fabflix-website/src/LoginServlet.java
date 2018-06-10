@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             out.close();
             return;
         }
-    	
+    	System.out.println("Verify successfully");
     	
         /* This example only allows username/password to be test/test
         /  in the real project, you should talk to the database to verify username/password
@@ -62,7 +62,9 @@ public class LoginServlet extends HttpServlet {
                 out.println("envCtx is NULL");
 
             // Look up our data source
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            System.out.println("Start to look up database");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
+            System.out.println("Lookup successfully");
 
             if (ds == null)
                 System.out.println("ds is null.");
@@ -74,14 +76,17 @@ public class LoginServlet extends HttpServlet {
             String username = "";
             String password = "";
             String query = "";
+            dbCon.setReadOnly(true);
             PreparedStatement preparedStatement;
             
+            System.out.println("Starting to make prepareStatement");
             // Generate a SQL query
             if (request.getParameter("employee_email")==null && request.getParameter("employee_password")==null) {
 	            username = request.getParameter("email"); 
             	password = request.getParameter("password");
             	query = "select * from customers where email=?;";
             	preparedStatement = dbCon.prepareStatement(query);
+            	System.out.println("Make prepared statement succesfully");
             	preparedStatement.setString(1, username);
             }
             else {
@@ -99,10 +104,11 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
             	String encryptedPassword = rs.getString("password");
             	success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
-            	
+            	System.out.println("Whether password is correct: " + success);
             	if (success) {
             		if (request.getParameter("employee_email")==null && request.getParameter("employee_password")==null) {
 	                	int customerId = rs.getInt("id");
+	                	System.out.println("customerId: " + customerId);
 	                	request.getSession().setAttribute("user", new User(username, customerId));
             		}
             		else {
@@ -121,6 +127,7 @@ public class LoginServlet extends HttpServlet {
             else {
 				responseJsonObject.addProperty("message", "User: " + username + " doesn't exist");
             }
+            System.out.println("responseJsonObject: " + responseJsonObject.toString());
             response.getWriter().write(responseJsonObject.toString());
             // Close all structures
             rs.close();
@@ -129,7 +136,7 @@ public class LoginServlet extends HttpServlet {
 
         } catch (Exception ex) {
             // Output Error Massage to html
-            System.out.println(ex.getMessage());
+            System.out.println("Get excpetion message: " + ex.getMessage());
             return;
         }
     }

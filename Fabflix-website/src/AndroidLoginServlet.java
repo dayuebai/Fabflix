@@ -66,12 +66,13 @@ public class AndroidLoginServlet extends HttpServlet {
                 System.out.println("envCtx is NULL");
 
             // Look up our data source
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
             
             if (ds == null)
                 System.out.println("ds is null.");
 
             Connection dbCon = ds.getConnection();
+            dbCon.setReadOnly(true);
             if (dbCon == null)
                 System.out.println("dbcon is null.");
             

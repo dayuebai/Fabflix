@@ -61,12 +61,13 @@ public class CheckoutServlet extends HttpServlet {
                 out.println("envCtx is NULL");
 
             // Look up our data source
-            DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
 
             if (ds == null)
                 System.out.println("ds is null.");
 
             Connection dbcon = ds.getConnection();
+            dbcon.setReadOnly(true);
             if (dbcon == null)
                 System.out.println("dbcon is null.");
             
@@ -95,7 +96,6 @@ public class CheckoutServlet extends HttpServlet {
 				
 				String updateQuery = "INSERT INTO sales(customerId, movieId, saleDate) " + 
 						"VALUES(?,?,NOW())";
-				
 				PreparedStatement preparedUpdateStatement = dbcon.prepareStatement(updateQuery);
 				preparedUpdateStatement.setInt(1, Integer.parseInt(customerId));
 				
@@ -107,10 +107,12 @@ public class CheckoutServlet extends HttpServlet {
 					for (int counter = 0; counter < amount; ++counter) {
 		        		
 		        		// Update sales table
+						dbcon.setReadOnly(false);
 		        		preparedUpdateStatement.executeUpdate();
 		        		
 		        		// Get last inserted sale ID
 		        		Statement idQueryStatement = dbcon.createStatement();
+		        		dbcon.setReadOnly(true);
 		        		String idQuery = "select LAST_INSERT_ID() as id;";
 		        		ResultSet rs = idQueryStatement.executeQuery(idQuery);
 		        		
