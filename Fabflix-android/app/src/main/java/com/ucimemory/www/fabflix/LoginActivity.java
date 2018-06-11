@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity{
             }  // HTTP POST Form Data
         };
 
-        SafetyNet.getClient(this).verifyWithRecaptcha("6Le_UlsUAAAAAGMOwxDOHSorNI9GM8E5gd94MNo0")
+        SafetyNet.getClient(this).verifyWithRecaptcha("6LdaqVsUAAAAABF6n422v0lEJwybK3xGvjC4Bwdz")
                 .addOnSuccessListener(this, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
                     @Override
                     public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {

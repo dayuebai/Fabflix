@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="icon" href="fablix.png" type="image/png">
+	<title>Shopping Cart</title>
+	
+	<style>
+		body{
+			background-color: #1c1b1a;
+			color: #ffffff;
+			height: 100%;
+		}
+		
+		#toTop{
+			color: #ffffff;
+			font-size: 135%;
+			text-decoration: underline;
+		}
+		
+		#toTop:hover{
+			color: red;
+		}
+		
+		a.nav-link{
+			color: #ffffff; 
+			text-decoration: none;
+		}
+		
+		a.nav-link:hover{
+			color: red;
+		}
+
+		a.tips{
+			font-size:150%; 
+			color: #98bf3d;
+			text-decoration: underline;
+		}
+		
+		a.tips:hover{
+			color: #a1ce7b;
+		}
+		
+		.autocomplete-suggestions { border: 1px solid #999; background: #000000; overflow: auto; }
+		.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+		.autocomplete-selected { background: #565759; }
+		.autocomplete-suggestions strong { font-weight: normal; color: red; }
+		.autocomplete-group { padding: 2px 5px; }
+		.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+		
+		.footer{
+			position:fixed;
+			bottom: 0;
+			width: 100%;
+			height: 40px;
+			padding: 0;
+			margin: 0;
+			background-color: #1c1b1a;
+		}
+		
+		.footer ul{
+			background-color: #000000;
+			text-align: center;
+			margin: 0;
+		}
+		
+		.footer li{
+			display: inline-block;
+		}
+		
+		.footer li a{
+			font-size: 13px;
+			color: #ffffff;
+			text-decoration: none;
+		}
+		
+		.footer li a:hover{
+			color: red;
+		}
+		
+		.copyright{
+			background-color: #000000;
+			color: #ffffff;
+			font-size: 12px;
+			text-align: center;
+			margin: 0;
+		}	
+	</style>
+	
+</head>
+<body id="top">
+	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
+		<ul class="navbar-nav mr-auto">
+			<li style="padding: 3px 0px 0px 10px;" class="nav-item">
+				<a style="text-decoration: none; font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg"  href="index.html">Home</a>
+			</li>
+			<li style="padding: 0px 15px;" class="nav-item">
+				<a class="nav-link btn-lg" href="movies.html">Movies</a>
+			</li>
+		</ul>	
+
+		<form style="text-decoration: none; width: 100%; margin-left: 16%; margin-right: auto" class="form-inline" method="get" action="#">		
+  			<input style="margin: 3px; background-color: #000000; color: #FFFFFF;" class="col-sm-4 form-control" id="autocomplete" type="text" name="title" placeholder="Find movies by titles...">
+  			<button style="border-style: none; margin: 3px; padding: 4px; background-color: #000000;" class="text-danger" id="searchButton">
+				<i class="fa fa-search fa-lg" aria-hidden="true"></i>
+			</button>
+		</form>
+
+		<div class="dropdown">
+			<button style="margin-right: 15px;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fa fa-database fa-lg" aria-hidden="true"></i>
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form action="movies.html" method="get">
+					<div style="padding:10px" class="form-group">
+						
+          				<input type="text" name="title" class="form-control" placeholder="By title... ">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="number" name="year" class="form-control" placeholder="By year...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="director" class="form-control" placeholder="By director...">
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				
+          				<input type="text" name="star" class="form-control" placeholder="By star's name...">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div>
+			<a style="margin-right: 8px; color: #ffffff; text-decoration: none;" class="btn btn-danger" href="cart.html" > 
+				<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart	
+			</a>
+		</div>
+	</nav>
+	
+	<div style="height: 50px;" id="alert_info"></div>
+	
+	<div id="cart_info"></div>
+	
+	<div style="margin-bottom: 50px;" id="checkout_button"></div>
+	
+	<div style="font-family: Times New Roman;" class="footer btn-sm"></div>
+	
+	<!-- Load jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
+		
+	<!-- Load our own JS file -->
+	<!-- The path is relative to single-star.html, since these two files are in the same directory -->
+	<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
+	     otherwise the url is relative to the root path-->
+	<script src="cart.js"></script>
+	<script src="autocomplete.js"></script>
+	
+</body>
+</html>

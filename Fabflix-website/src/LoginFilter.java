@@ -37,7 +37,7 @@ public class LoginFilter implements Filter {
         }
         else {
 	        if (httpRequest.getSession().getAttribute("user") == null) {
-	            httpResponse.sendRedirect("login.html");
+	            httpResponse.sendRedirect("/Fabflix-website/login.html");
 	        } else {
 	            chain.doFilter(request, response);
 	        }

@@ -1,7 +1,8 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,15 +14,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 @WebServlet(name = "StarServlet", urlPatterns = "/singleStar")
 public class StarServlet extends HttpServlet {
 	private static final long serialVersionUID = 3L;
-	
-	// Create a dataSource which registered in web.xml
-	@Resource(name = "jdbc/moviedb")
-	private DataSource dataSource;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,8 +32,25 @@ public class StarServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try {
-			// Get a connection from dataSource
-			Connection dbcon = dataSource.getConnection();
+            // the following few lines are for connection pooling
+            // Obtain our environment naming context
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+            // Look up our data source
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
+
+            if (ds == null)
+                System.out.println("ds is null.");
+
+            Connection dbcon = ds.getConnection();
+            dbcon.setReadOnly(true);
+            if (dbcon == null)
+                System.out.println("dbcon is null.");
             
 			// Construct query
 			String query = "select id, name, birthYear from stars where id=?;";
