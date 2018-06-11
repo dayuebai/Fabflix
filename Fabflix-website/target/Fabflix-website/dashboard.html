@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="UTF-8">
+    <meta name="viewport"
+         content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Fabflix</title>
+	<link rel="icon" href="fablix.png" type="image/png">
+	 <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- This is link to font-awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    	
+	<!-- <link href="style.css" type="text/css" rel="stylesheet"> -->	
+	<style>
+		a.toTop{
+			color: #ffffff;
+			text-decoration: underline;
+		}
+		
+		a.toTop:hover{
+			color: red;
+		}
+		
+		a.nav-link, a.trailer, a.weekly_stars, a.in_theatre{
+			color: #ffffff; 
+			text-decoration: none;
+		}
+		
+		a.nav-link:hover, a.trailer:hover, a.weekly_stars:hover, a.in_theatre:hover{
+			color: red;
+		}
+	</style>
+</head>
+
+<body id="top" style="background-color: #1c1b1a; color: #ffffff;">
+	
+	<nav class="navbar navbar-expand-sm" style="background-color: #000000; color: #ffffff;">
+		<ul class="navbar-nav">
+			<li style="padding: 3px 0px 0px 10px;" class="nav-item">
+				<a style="text-decoration: none; font-family: cursive; color: red;" class="navbar-brand btn-lg" href="index.html"><strong>Fabflix</strong></a>
+			</li>
+		</ul>	
+
+		<div class="dropdown">
+			<button style="margin-left: 15px; margin-right: 25px;" class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fas fa-user-plus"></i> Insert a Star
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form id="updateStar" action="#" method="get">
+					<div style="padding:10px" class="form-group">
+          				<input type="text" name="insertedStarName" class="form-control" placeholder="Enter star name" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="number" name="birthYear" class="form-control" placeholder="Enter birth year">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>	
+			</div>
+		</div>		
+		
+		<div class="dropdown">
+			<button style="margin-left: 15px; margin-right: 25px;" class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+				<i class="fas fa-plus-circle"></i> Add a Movie
+			</button>
+			<div style="background-color:#1c1b1a;"class="dropdown-menu">
+				<form id="updateMovie" action="#" method="get">
+					<div style="padding:10px" class="form-group">
+          				<input type="text" name="insertedMovieTitle" class="form-control" placeholder="Enter movie title" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="number" name="year" class="form-control" placeholder="Enter movie year" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">	
+          				<input type="text" name="director" class="form-control" placeholder="Enter director" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">	
+          				<input type="text" name="star_name" class="form-control" placeholder="Enter a movie star" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">	
+          				<input type="text" name="genre_name" class="form-control" placeholder="Enter a movie genre" required>
+        			</div>
+        			<div style="padding:10px" class="form-group">
+          				<input type="number" name="starBirth" class="form-control" placeholder="Enter birth year">
+        			</div>
+        			<div style="margin-left: 25%;">
+        				<button type="submit" class="btn btn-primary text-sm">Submit</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+	</nav>
+	
+	<div style="margin-top: 25px; margin-bottom: 25px; text-align: center; font-size: 200%;">Database Information</div>
+	
+	<div id="table_metadata">
+		<div class="container"></div>
+	</div>
+
+	
+	
+	<!-- Load jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+		<!-- Load our own JS file -->
+	<!-- The path is relative to single-star.html, since these two files are in the same directory -->
+	<!-- Note the url does not contain a "/" in the beginning, which means the url is relative to current path
+	     otherwise the url is relative to the root path-->
+	<script src="dashboard.js"></script>
+	
+</body>
+
+</html>

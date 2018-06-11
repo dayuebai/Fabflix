@@ -34,7 +34,7 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
-.target
+# .target
 
 # Tern plugin
 .tern-project
@@ -140,7 +140,7 @@ fabric.properties
 
 # Package Files #
 *.jar
-*.war
+# *.war
 *.ear
 *.zip
 *.tar.gz
@@ -151,7 +151,7 @@ hs_err_pid*
 
 ### Java-Web ###
 ## ignoring target file
-target/
+#target/
 
 ### Maven ###
 pom.xml.tag

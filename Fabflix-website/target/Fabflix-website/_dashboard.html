@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"
+         content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+	<link rel="icon" href="fablix.png" type="image/png">
+	<!-- This is link to font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Employee Login</title>
+</head>
+<body class="bg-dark text-white">
+	<div class="container">
+		<div style="margin-top:200px;" class="row justify-content-md-center">
+			<h1 style="font-family: Arial; color: red;"><b>Fabflix Employee</b></h1>
+		</div>
+		<form id="login_form" class="form-horizontal" method="post" action="#">
+			<div class="form-group">
+				<div style="margin:50px;" class="row justify-content-md-center">			
+					<label class="control-label col-lg-3" for="email"><b>Username:</b><i style="color:#ffffff; margin-left:10px;" class="fa fa-envelope-open-o" aria-hidden="true"></i></label>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" placeholder="Enter E-mail" id="email" name="employee_email">
+						<br>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div style="margin:50px;" class="row justify-content-md-center">	
+					<label class="control-label col-lg-3" for="pwd"><b>Password:</b><i style="margin-left:10px;" class="fa fa-key" aria-hidden="true"></i></label>
+					<div class="col-xs-3">
+						<input type="password"class="form-control" placeholder="Enter Password" id="pwd" name="employee_password">
+						<br>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row justify-content-md-center">
+					<div class="g-recaptcha" data-sitekey="6LddXFsUAAAAAGx0YYq7Oig5chPAAVce5Y-c48wd"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row justify-content-md-center">	
+					<div>
+						<button type="submit" class="btn btn-outline-danger">Login</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div style="text-align:center; margin:30px;" id="login_error_message"></div>
+
+	<!-- Load jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+	<!-- include our own JS file -->
+	<script src="./_dashboard.js"></script>
+</body>
+</html>

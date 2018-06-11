@@ -1,7 +1,8 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +12,12 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 
 @WebServlet(name = "IndexServlet", urlPatterns = "/api/index")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 8L;
-	
-	// Create a dataSource which registered in web.xml
-	@Resource(name = "jdbc/moviedb")
-	private DataSource dataSource;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,11 +28,29 @@ public class IndexServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			// Get a connection from dataSource
-			Connection dbcon = dataSource.getConnection();
+            // the following few lines are for connection pooling
+            // Obtain our environment naming context
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+            // Look up our data source
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/localDB");
+
+            if (ds == null)
+                System.out.println("ds is null.");
+
+            Connection dbcon = ds.getConnection();
+            dbcon.setReadOnly(true);
+            if (dbcon == null)
+                System.out.println("dbcon is null.");
+            
 			String query = "SELECT name from genres;";
-			PreparedStatement preparedStatement = dbcon.prepareStatement(query);
-			ResultSet rs = preparedStatement.executeQuery();
+			Statement statement = dbcon.createStatement();
+			ResultSet rs = statement.executeQuery(query);
 
 			JsonArray jsonArray = new JsonArray();
 			
@@ -53,7 +68,7 @@ public class IndexServlet extends HttpServlet {
             
 			// Close open resources
 			rs.close();
-			preparedStatement.close();
+			statement.close();
 			dbcon.close();
 		} catch (Exception e) {
 			// write error message JSON object to output
