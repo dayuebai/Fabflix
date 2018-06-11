@@ -1,6 +1,9 @@
 ## CS122B Team 3 Projects
 Team member: Dayue Bai & Michael Wang
 
+Project 5 Report:
+* Location: Landing page of the Github Repository
+
 Project 5 > Task 3 > Usage of the parser:
 * The parser we wrote is parser.py, In order to run it, go to the directory ```/Fabflix-website/target/``` and run the following command:
 
