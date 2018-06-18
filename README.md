@@ -6,10 +6,10 @@ It is hosted on AWS EC2 and Google Cloud Platform apache2 server(with load balan
 URL: http://www.ucimemory.com/Fabflix-website
 
 ## Project Architecture
-![Project Architecture](/Users/dayuebai/Google Drive/gitclones/Fabflix/Design/design-diagram.jpg)
+![Project Architecture](./Design/design-diagram.jpg)
 
 ## Movie Database Schema
-![Database Scheme](/Users/dayuebai/Google Drive/gitclones/Fabflix/Design/moviedb_schemas.png)
+![Database Scheme](./Design/moviedb_schemas.png)
 ## Stress Test Report:
 * Tool: JMeter
 * Location: Landing page of the Github Repository
